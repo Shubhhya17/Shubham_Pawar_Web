@@ -1,6 +1,45 @@
 "use client";
+import { useState } from "react";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+  const [status, setStatus] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("Sending...");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setStatus("Message sent successfully!");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setStatus(data.error || "Failed to send message.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setStatus("An error occurred. Please try again.");
+    }
+  };
+
   return (
     <section className="contact" id="contact">
 
@@ -73,10 +112,9 @@ export default function Contact() {
 
             <div className="text">Message me</div>
 
-            <form
-              action="https://formspree.io/f/xvzplypo"
-              method="POST"
-            >
+            <form onSubmit={handleSubmit}>
+
+              {status && <div style={{ marginBottom: '15px', color: status === 'Message sent successfully!' ? 'green' : 'red', fontWeight: 'bold' }}>{status}</div>}
 
               <div className="fields">
 
@@ -85,6 +123,8 @@ export default function Contact() {
                     type="text"
                     name="name"
                     placeholder="Name"
+                    value={formData.name}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -94,6 +134,8 @@ export default function Contact() {
                     type="email"
                     name="email"
                     placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -106,6 +148,8 @@ export default function Contact() {
                   type="text"
                   name="subject"
                   placeholder="Subject"
+                  value={formData.subject}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -115,6 +159,8 @@ export default function Contact() {
                 <textarea
                   name="message"
                   placeholder="Message.."
+                  value={formData.message}
+                  onChange={handleChange}
                   required
                 ></textarea>
               </div>
@@ -124,8 +170,9 @@ export default function Contact() {
                 <button
                   type="submit"
                   className="submit-btn"
+                  disabled={status === "Sending..."}
                 >
-                  Send Message
+                  {status === "Sending..." ? "Sending..." : "Send Message"}
                 </button>
               </div>
 
