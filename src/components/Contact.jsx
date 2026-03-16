@@ -56,10 +56,7 @@ export default function Contact() {
             <div className="text">Get in Touch</div>
 
             <p>
-              As a software engineering student, I am actively seeking
-              opportunities to apply my skills and contribute to projects.
-              I am eager to gain hands-on experience and make meaningful
-              contributions in the field.
+            As a Software Engineering, I am seeking opportunities to apply my skills in React, JavaScript, HTML, CSS, and Node.js to develop efficient and scalable web applications. I am passionate about learning new technologies, solving real-world problems, and contributing to impactful software projects.
             </p>
 
             <div className="icons">
@@ -96,7 +93,7 @@ export default function Contact() {
                 <div className="info">
                   <div className="head">Email</div>
                   <div className="sub-title">
-                    shubhpawar1703@gmail.com
+                    pawarshubh980@gmail.com
                   </div>
                 </div>
               </div>
