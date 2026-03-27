@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar"
 import ScrollTop from "@/components/ScrollTop"
-import Home from "@/components/Home"
+import Landing from "@/components/Landing"
 import About from "@/components/About"
 import Certificates from "@/components/Certificates"
 import Skills from "@/components/Skills"
@@ -10,6 +10,7 @@ import Projects from "@/components/Projects"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
 import ChatBot from "@/components/ChatBot"
+import Home from "@/components/Landing"
 
 export default function Page() {
   return (
@@ -25,7 +26,7 @@ export default function Page() {
       <Projects />
       <Contact />
       <Footer />
-      <ChatBot />
+      
     </>
   )
 }
