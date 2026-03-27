@@ -10,7 +10,7 @@ export default function Education() {
         <div className="skills-content">
 
           {/* 10th Standard */}
-          <div className="column right">
+          {/* <div className="column right">
 
             <center>
               <h1>10 Standard</h1>
@@ -27,7 +27,7 @@ export default function Education() {
 
             <hr/>
 
-          </div>
+          </div> */}
 
 
           {/* BE */}
@@ -52,7 +52,7 @@ export default function Education() {
 
 
           {/* 12th */}
-          <div className="column right">
+          {/* <div className="column right">
 
             <center>
               <h1>12 Standard</h1>
@@ -69,7 +69,7 @@ export default function Education() {
 
             <hr/>
 
-          </div>
+          </div> */}
 
 
           {/* Progress Bars */}
@@ -77,25 +77,25 @@ export default function Education() {
           <div className="column right">
 
             {/* 10th */}
-            <div className="bars">
+            {/* <div className="bars">
               <div className="info">
                 <span>10th</span>
                 <span>75%</span>
               </div>
 
               <div className="line mysql"></div>
-            </div>
+            </div> */}
 
 
             {/* 12th */}
-            <div className="bars">
+            {/* <div className="bars">
               <div className="info">
                 <span>12th</span>
                 <span>57%</span>
               </div>
 
               <div className="line css"></div>
-            </div>
+            </div> */}
 
 
             {/* BE */}

@@ -38,7 +38,7 @@ const socialData = [
     id: 5,
     name: "Facebook",
     image: "/images/Facebook.png",
-    link: "https://www.facebook.com", // Added a default link
+    link: "https://www.facebook.com/shubhampawar", // Added a default link
     description: "Facebook is a social networking platform where users connect with friends, share content, and engage online.",
   },
 ];
