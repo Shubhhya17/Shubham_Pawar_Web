@@ -12,7 +12,7 @@
 
 .maxWidth {
     max-width: 1300px;
-    padding: 0 80px;
+    padding: 0 0px;
     margin: auto;
     width: 100%;
 }
@@ -153,3 +153,59 @@
         opacity: 1;
     }
 }
+
+/* ================= TABLET ================= */
+
+@media (max-width: 768px) {
+
+    .home {
+        /* height: auto; */
+        padding: 60px 20px;
+        justify-content: center;
+        text-align: center;
+
+        /* image maintain */
+        background-size: cover;
+        background-position: center;
+    }
+
+    .homeContent .text1 {
+        font-size: 22px;
+    }
+
+    .homeContent .text2 {
+        font-size: 45px;
+        margin-left: 0;
+        line-height: 1.2;
+    }
+
+    .homeContent .text3 {
+        font-size: 26px;
+    }
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 480px) {
+
+    .home {
+        padding: 50px 15px;
+    }
+
+    .homeContent .text1 {
+        font-size: 18px;
+    }
+
+    .homeContent .text2 {
+        font-size: 40px;
+        line-height: 1.2;
+    }
+
+    .homeContent .text3 {
+        font-size: 25px;
+    }
+}
+
+
+/* ================= 380px (SMALL MOBILE) ================= */
