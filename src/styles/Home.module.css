@@ -9,6 +9,8 @@
     display: flex;
     align-items: center;
     padding: 0px 80px;
+    position: relative;
+    overflow: hidden;
 }
 .typing {
   font-weight: 900; /* ya bold */
@@ -51,7 +53,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    backgroundColor: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;

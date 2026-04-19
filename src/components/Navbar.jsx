@@ -1,121 +1,124 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
-export default function Navbar(){
+export default function Navbar() {
+  const [sticky, setSticky] = useState(false);
+  const [menu, setMenu] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-const [sticky,setSticky] = useState(false)
-const [menu,setMenu] = useState(false)
+  useEffect(() => {
+    setMounted(true);
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setSticky(true);
+      } else {
+        setSticky(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-useEffect(()=>{
+  // Use mounted to prevent class mismatch during initial hydration
+  const navClass = `navbar ${mounted && sticky ? "sticky" : ""}`;
+  const menuClass = `menu ${mounted && menu ? "active" : ""}`;
 
-const handleScroll = ()=>{
+  return (
+    <>
+      <nav className={navClass}>
+        <div className="max-width">
+          <div className="logo">
+            <a href="#" suppressHydrationWarning>Portfo<span>lio.</span></a>
+          </div>
 
-if(window.scrollY > 20){
-setSticky(true)
-}else{
-setSticky(false)
-}
+          <ul className={menuClass}>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#career">My Career</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
 
-}
+          <div className="menu-btn" onClick={() => setMenu(!menu)}>
+            ☰
+          </div>
+        </div>
+      </nav>
 
-window.addEventListener("scroll",handleScroll)
+      <style jsx global>{`
+        .navbar {
+          position: fixed;
+          width: 100%;
+          padding: 20px 0;
+          transition: all 0.4s ease;
+          z-index: 1000;
+        }
 
-return ()=> window.removeEventListener("scroll",handleScroll)
+        .navbar.sticky {
+          background: #dc143c !important; /* Crimson */
+          padding: 15px 0;
+        }
 
-},[])
+        .logo a {
+          font-size: 28px;
+          font-weight: 600;
+          color: #fff;
+          text-decoration: none;
+        }
 
-return(
+        .logo a span {
+          color: #dc143c;
+          transition: 0.3s;
+        }
+        
+        .navbar.sticky .logo a span {
+          color: #fff !important;
+        }
 
-<>
-<nav className={`navbar ${sticky ? "sticky" : ""}`}>
+        .menu li {
+          display: inline-block;
+          margin-left: 25px;
+        }
 
-<div className="max-width">
+        .menu li a {
+          color: #fff;
+          text-decoration: none;
+          font-size: 18px;
+          font-weight: 500;
+        }
 
-<div className="logo">
-<a href="#">Portfo<span>lio.</span></a>
-</div>
+        .menu li a:hover {
+          color: #dc143c;
+        }
 
-<ul className={`menu ${menu ? "active" : ""}`}>
+        .navbar.sticky .menu li a:hover {
+          color: #111;
+        }
 
-<li><a href="#home">Home</a></li>
-<li><a href="#about">About</a></li>
-<li><a href="#skills">Skills</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#contact">Contact</a></li>
-
-</ul>
-
-<div className="menu-btn" onClick={()=>setMenu(!menu)}>
-☰
-</div>
-
-</div>
-
-</nav>
-
-<style jsx>{`
-
-.navbar{
-position: fixed;
-width: 100%;
-padding: 20px 0;
-transition: all 0.4s ease;
-}
-
-.navbar.sticky{
-background: rgba(220,20,60,0.8);
-padding: 15px 0;
-}
-
-/* logo animation */
-.logo a{
-font-size: 28px;
-font-weight: 600;
-opacity: 0;
-animation: fadeIn 1s ease forwards;
-}
-
-/* menu animation */
-.menu li{
-display: inline-block;
-margin-left: 25px;
-opacity: 0;
-transform: translateY(-10px);
-animation: slideDown 0.6s ease forwards;
-}
-
-.menu li:nth-child(1){animation-delay:0.2s;}
-.menu li:nth-child(2){animation-delay:0.4s;}
-.menu li:nth-child(3){animation-delay:0.6s;}
-.menu li:nth-child(4){animation-delay:0.8s;}
-.menu li:nth-child(5){animation-delay:1s;}
-
-.menu li a{
-color:white;
-text-decoration:none;
-font-size:18px;
-}
-
-/* keyframes */
-
-@keyframes fadeIn{
-to{
-opacity:1;
-}
-}
-
-@keyframes slideDown{
-to{
-opacity:1;
-transform: translateY(0);
-}
-}
-
-`}</style>
-
-</>
-
-)
-
+        @media (max-width: 947px) {
+          .menu-btn { display: block; }
+          .menu {
+            position: fixed;
+            height: 100vh;
+            width: 100%;
+            left: -100%;
+            top: 0;
+            background: #111;
+            text-align: center;
+            padding-top: 80px;
+            transition: all 0.3s ease;
+          }
+          .menu.active { left: 0; }
+          .menu li { display: block; }
+          .menu li a {
+            display: inline-block;
+            margin: 20px 0;
+            font-size: 25px;
+          }
+        }
+      `}</style>
+    </>
+  );
 }

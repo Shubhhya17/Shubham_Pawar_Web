@@ -1,14 +1,21 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Typed from "typed.js";
 
 export default function About() {
   const el = useRef(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || !el.current) return;
+    
     const typed = new Typed(el.current, {
-      strings: ["React", "Next.js", "Node.js", "MongoDB", "Javascript", "Prisma", "Database","CSS", "Github"],
+      strings: ["React", "Next.js", "Node.js", "MongoDB", "Javascript", "Prisma", "Database", "CSS", "Github"],
       typeSpeed: 100,
       backSpeed: 60,
       loop: true,
@@ -17,23 +24,23 @@ export default function About() {
     return () => {
       typed.destroy();
     };
-  }, []);
+  }, [mounted]);
 
   return (
     <section className="about" id="about">
       <div className="max-width">
-        <h2 className="title">About me</h2>
+        <h2 className="title" data-aos="fade-up">About me</h2>
 
         <div className="about-content">
           {/* Left side image */}
-          <div className="column left">
+          <div className="column left" data-aos="fade-right">
             <img src="/images/Pass2.jpg" alt="profile-photo" />
           </div>
 
           {/* Right side content */}
-          <div className="column right">
+          <div className="column right" data-aos="fade-left">
             <div className="text">
-              I have Knowledge in <span ref={el}></span>
+              I have Knowledge in <span><span ref={el}></span></span>
             </div>
 
             <p>

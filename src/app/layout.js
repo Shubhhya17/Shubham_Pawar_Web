@@ -24,6 +24,8 @@ export const metadata = {
 
 
 
+import AOSInit from "@/components/AOSInit";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -35,7 +37,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        
+        <AOSInit />
         {/* 2. CORRECT CLARITY IMPLEMENTATION */}
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`

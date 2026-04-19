@@ -5,14 +5,13 @@ export default function Skills() {
     <section className="skills" id="skills">
       <div className="max-width">
 
-        <h2 className="title">My skills</h2>
+        <h2 className="title" data-aos="fade-up">My skills</h2>
 
         <div className="skills-content">
 
           {/* Left Side Text */}
 
-          <div className="column left">
-
+          <div className="column left" data-aos="fade-right">
             <div className="text">
               My creative skills & experiences.
             </div>
@@ -39,82 +38,68 @@ export default function Skills() {
             >
               Read more
             </a>
-
           </div>
 
 
           {/* Right Side Skill Bars */}
 
-          <div className="column right">
+          <div className="column right" data-aos="fade-left">
 
             {/* React */}
-
             <div className="bars">
               <div className="info">
                 <span>React</span>
                 <span>80%</span>
               </div>
-              <div className="line Java"></div>
+              <div className="line React"></div>
             </div>
 
-
             {/* Next.js */}
-
             <div className="bars">
               <div className="info">
                 <span>Next.js</span>
                 <span>80%</span>
               </div>
-              <div className="line HTML"></div>
+              <div className="line Nextjs"></div>
             </div>
 
-
             {/* JavaScript */}
-
             <div className="bars">
               <div className="info">
                 <span>JavaScript</span>
                 <span>70%</span>
               </div>
-              <div className="line CSS"></div>
+              <div className="line JavaScript"></div>
             </div>
 
-
             {/* CSS */}
-
             <div className="bars">
               <div className="info">
                 <span>CSS</span>
                 <span>80%</span>
               </div>
-              <div className="line JavaScript"></div>
+              <div className="line CSS"></div>
             </div>
 
-
             {/* Node */}
-
             <div className="bars">
               <div className="info">
                 <span>Node</span>
                 <span>60%</span>
               </div>
-              <div className="line Bootstrap"></div>
+              <div className="line Nodejs"></div>
             </div>
 
-
             {/* MongoDB */}
-
             <div className="bars">
               <div className="info">
                 <span>Mongo</span>
                 <span>70%</span>
               </div>
-              <div className="line React"></div>
+              <div className="line MongoDB"></div>
             </div>
 
-
             {/* GitHub */}
-
             <div className="bars">
               <div className="info">
                 <span>Git & GitHub</span>
@@ -123,9 +108,7 @@ export default function Skills() {
               <div className="line GitHub"></div>
             </div>
 
-
             {/* MySQL */}
-
             <div className="bars">
               <div className="info">
                 <span>MySQL</span>

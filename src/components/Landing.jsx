@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Typed from "typed.js";
-import styles from "../styles/Home.module.css"
+import styles from "../styles/Home.module.css";
+import Particles from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 
 export default function Landing() {
   const [showPopup, setShowPopup] = useState(false);
@@ -12,9 +14,18 @@ export default function Landing() {
     userEmail: "",
     userNumber: "",
   });
+  const [mounted, setMounted] = useState(false);
+  const [particlesReady, setParticlesReady] = useState(false);
+  const typingRef = useRef(null);
 
   useEffect(() => {
-    const typed = new Typed(".typing", {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || !typingRef.current) return;
+
+    const typed = new Typed(typingRef.current, {
       strings: [
         "Frontend Developer",
         "MERN Stack Developer",
@@ -27,16 +38,25 @@ export default function Landing() {
     });
 
     const timer = setTimeout(() => {
-      const alreadyDone = sessionStorage.getItem("formSubmitted");
-      if (!alreadyDone) {
+      try {
+        const alreadyDone = sessionStorage.getItem("formSubmitted");
+        if (!alreadyDone) {
+          setShowPopup(true);
+        }
+      } catch (error) {
         setShowPopup(true);
       }
-    }, 2000);
+    }, 1500);
 
     return () => {
       typed.destroy();
       clearTimeout(timer);
     };
+  }, [mounted]);
+
+  // tsParticles init
+  const particlesInit = useCallback(async (engine) => {
+    await loadSlim(engine);
   }, []);
 
   const handleChange = (e) => {
@@ -55,7 +75,6 @@ export default function Landing() {
       if (res.ok) {
         setIsSubmitted(true);
         sessionStorage.setItem("formSubmitted", "true");
-        // Close modal after 3 seconds of showing "Thank You"
         setTimeout(() => setShowPopup(false), 3000);
       }
     } catch (error) {
@@ -63,15 +82,72 @@ export default function Landing() {
     }
   };
 
+  const particlesOptions = {
+    fullScreen: false,
+    background: { color: { value: "transparent" } },
+    fpsLimit: 60,
+    interactivity: {
+      events: {
+        onHover: { enable: true, mode: "repulse" },
+        onClick: { enable: true, mode: "push" },
+      },
+      modes: {
+        repulse: { distance: 120, duration: 0.4 },
+        push: { quantity: 3 },
+      },
+    },
+    particles: {
+      color: { value: ["#ffffff", "#dc143c", "#ff4d6d"] },
+      links: {
+        color: "#ffffff",
+        distance: 140,
+        enable: true,
+        opacity: 0.25,
+        width: 1,
+      },
+      move: {
+        direction: "none",
+        enable: true,
+        outModes: { default: "bounce" },
+        random: true,
+        speed: 1.2,
+        straight: false,
+      },
+      number: { density: { enable: true }, value: 90 },
+      opacity: { value: { min: 0.2, max: 0.7 }, animation: { enable: true, speed: 1 } },
+      shape: { type: "circle" },
+      size: { value: { min: 1, max: 3 } },
+    },
+    detectRetina: true,
+  };
+
   return (
     <>
       <section className={styles.home} id="home">
-        <div className={styles.maxWidth}>
+        {/* Particles animated background */}
+        {mounted && (
+          <Particles
+            id="hero-particles"
+            init={particlesInit}
+            options={particlesOptions}
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 0,
+            }}
+          />
+        )}
+
+        <div className={styles.maxWidth} style={{ position: "relative", zIndex: 1 }}>
           <div className={styles.homeContent}>
-            <div className={styles.text1}>Hello, my name is</div>
-            <div className={styles.text2}>Shubham Pawar</div>
-            <div className={styles.text3}>
-              And I'm a <span className="typing" ></span>
+            <div className={styles.text1} data-aos="fade-down" data-aos-delay="100">
+              Hello, my name is
+            </div>
+            <div className={styles.text2} data-aos="fade-up" data-aos-delay="200">
+              Shubham Pawar
+            </div>
+            <div className={styles.text3} data-aos="fade-up" data-aos-delay="300">
+              And I'm a <span ref={typingRef}></span>
             </div>
           </div>
         </div>
@@ -81,14 +157,20 @@ export default function Landing() {
       {showPopup && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalBox}>
-            <button 
-                onClick={() => setShowPopup(false)} 
-                className={styles.closeBtn}
+            <button
+              onClick={() => setShowPopup(false)}
+              className={styles.closeBtn}
             >
               &times;
             </button>
 
-            {!isSubmitted ? (
+            {isSubmitted ? (
+              <div className={styles.successContainer}>
+                <span className={styles.checkmark}>✓</span>
+                <h2>Thank You!</h2>
+                <p>Your data has been submitted successfully.</p>
+              </div>
+            ) : (
               <>
                 <h2>Welcome!</h2>
                 <p>Please let us know who you are:</p>
@@ -122,13 +204,6 @@ export default function Landing() {
                   </button>
                 </form>
               </>
-            ) : (
-              /* --- THANK YOU ANIMATION --- */
-              <div className={styles.successContainer}>
-                <span className={styles.checkmark}>✓</span>
-                <h2>Thank You!</h2>
-                <p>Your data has been submitted successfully.</p>
-              </div>
             )}
           </div>
         </div>

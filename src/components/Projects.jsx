@@ -40,9 +40,9 @@ export default function Projects() {
   return (
     <section className="teams" id="projects">
       <div className="max-width">
-        <h2 className="title">Projects</h2>
+        <h2 className="title" data-aos="fade-up">Projects</h2>
 
-        <div className="carousel">
+        <div className="carousel" data-aos="zoom-in">
           <Swiper
             modules={[Autoplay]}
             spaceBetween={30}

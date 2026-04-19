@@ -45,18 +45,18 @@ export default function Contact() {
 
       <div className="max-width">
 
-        <h2 className="title">Contact me</h2>
+        <h2 className="title" data-aos="fade-up">Contact me</h2>
 
         <div className="contact-content">
 
           {/* LEFT SIDE */}
 
-          <div className="column left">
+          <div className="column left" data-aos="fade-right">
 
             <div className="text">Get in Touch</div>
 
             <p>
-            As a Software Engineering, I am seeking opportunities to apply my skills in React, JavaScript, HTML, CSS, and Node.js to develop efficient and scalable web applications. I am passionate about learning new technologies, solving real-world problems, and contributing to impactful software projects.
+            As a Software Engineer, I am seeking opportunities to apply my skills in React, JavaScript, HTML, CSS, and Node.js to develop efficient and scalable web applications. I am passionate about learning new technologies, solving real-world problems, and contributing to impactful software projects.
             </p>
 
             <div className="icons">
@@ -105,7 +105,7 @@ export default function Contact() {
 
           {/* RIGHT SIDE FORM */}
 
-          <div className="column right">
+          <div className="column right" data-aos="fade-left">
 
             <div className="text">Message me</div>
 

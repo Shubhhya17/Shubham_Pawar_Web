@@ -62,6 +62,7 @@ section{
     max-width: 1300px;
     padding: 0 80px;
     margin: auto;
+    overflow: hidden;
 }
 .about, .services, .skills, .teams, .contact, footer{
     font-family: 'Poppins', sans-serif;
@@ -427,29 +428,37 @@ section .title::after{
     top: 0;
     background: crimson;
 }
-.skills-content .right .Java::before{
+.skills-content .right .React::before{
     width: 80%;
 }
-.skills-content .right .HTML::before{
-    width: 90%;
-}
-.skills-content .right .CSS::before{
-    width: 70%;
+.skills-content .right .Nextjs::before{
+    width: 80%;
 }
 .skills-content .right .JavaScript::before{
+    width: 70%;
+}
+.skills-content .right .CSS::before{
     width: 80%;
 }
-.skills-content .right .Bootstrap::before{
+.skills-content .right .Nodejs::before{
     width: 60%;
 }
-.skills-content .right .React::before{
-    width: 64%;
+.skills-content .right .MongoDB::before{
+    width: 70%;
 }
 .skills-content .right .GitHub::before{
     width: 80%;
 }
 .skills-content .right .MySQL::before{
     width: 70%;
+}
+
+@keyframes fillLine {
+    from { width: 0; }
+}
+
+.skills .skills-content .right .line::before {
+    animation: fillLine 1.5s ease-out forwards;
 }
 
 
@@ -638,6 +647,66 @@ section .title::after{
     max-width:320px;
     }
 
+
+/* ============================================================
+   Uiverse.io animated button — used on Download CV, Read More,
+   Send Message
+   ============================================================ */
+
+/* Remove default link/button base styles */
+a.btn-animated,
+button.btn-animated {
+  margin: 0;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Core button style */
+a.btn-animated,
+button.btn-animated {
+  --border-right: 6px;
+  --text-stroke-color: rgba(17, 17, 17, 0.55);
+  --animation-color: crimson;
+  --fs-size: 1em;
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: var(--fs-size);
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+  position: relative;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+  margin-top: 20px;
+}
+
+/* The animated fill text on hover */
+a.btn-animated .hover-text,
+button.btn-animated .hover-text {
+  position: absolute;
+  box-sizing: border-box;
+  content: attr(data-text);
+  color: var(--animation-color);
+  width: 0%;
+  inset: 0;
+  border-right: var(--border-right) solid var(--animation-color);
+  overflow: hidden;
+  transition: 0.5s;
+  -webkit-text-stroke: 1px var(--animation-color);
+  white-space: nowrap;
+}
+
+/* Hover effect */
+a.btn-animated:hover .hover-text,
+button.btn-animated:hover .hover-text {
+  width: 100%;
+  filter: drop-shadow(0 0 16px var(--animation-color));
+}
+
 /********************** footer section styling ****************/
 footer{
     background: #111;
@@ -665,6 +734,7 @@ footer span a:hover{
 @media (max-width: 991px) {
     .max-width{
         padding: 0 50px;
+        overflow: hidden;
     }
 }
 @media (max-width: 947px){
@@ -779,10 +849,4 @@ footer span a:hover{
         font-size: 23px;
         line-height: 38px;
     }
-}
-
-.max-width{
-    /* max-width:1300px; */
-    /* padding:0 80px; */
-    margin:auto;
-    }   
+}   
