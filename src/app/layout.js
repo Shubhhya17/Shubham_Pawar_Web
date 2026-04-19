@@ -16,7 +16,13 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Shubham Pawar",
   description: "Meet Shubham Pawar ",
+  icons: {
+    icon: "/fab.ico", 
+  },
 };
+
+
+
 
 export default function RootLayout({ children }) {
   return (

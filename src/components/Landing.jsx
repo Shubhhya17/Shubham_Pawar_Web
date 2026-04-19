@@ -71,7 +71,7 @@ export default function Landing() {
             <div className={styles.text1}>Hello, my name is</div>
             <div className={styles.text2}>Shubham Pawar</div>
             <div className={styles.text3}>
-              And I'm a <span className="typing"></span>
+              And I'm a <span className="typing" ></span>
             </div>
           </div>
         </div>
