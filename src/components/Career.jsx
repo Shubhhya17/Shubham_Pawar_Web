@@ -104,6 +104,71 @@ export default function Career() {
                 </div>
               </div>
             </div>
+
+            {/* Experience: Aivariant Internship */}
+            <div className="timeline-item" data-aos="fade-right">
+              <div className="timeline-dot"></div>
+              <div className="timeline-year">May '24</div>
+              <div className="timeline-content">
+                <div className="exp-card" data-aos="fade-left">
+                  <div className="exp-header">
+                    <div className="exp-role">Full-Stack Developer Intern</div>
+                    <div className="exp-company">Aivariant</div>
+                    <div className="exp-meta">May 2024 – Oct 2024 &nbsp;·&nbsp; 6 months &nbsp;·&nbsp; Full-time</div>
+                  </div>
+                  <div className="exp-body">
+                    <p>Gained hands-on experience building full-stack web applications. Worked with Java, JavaScript, React, and MySQL to deliver features end-to-end, from database design to responsive UI implementation.</p>
+                    <div className="exp-tags">
+                      <span>Java</span><span>JavaScript</span><span>React</span><span>MySQL</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Experience: mr.chams */}
+            <div className="timeline-item" data-aos="fade-right">
+              <div className="timeline-dot"></div>
+              <div className="timeline-year">Nov '24</div>
+              <div className="timeline-content">
+                <div className="exp-card" data-aos="fade-left">
+                  <div className="exp-header">
+                    <div className="exp-role">Frontend Developer</div>
+                    <div className="exp-company">mr.chams</div>
+                    <div className="exp-meta">Nov 2024 – Nov 2025 &nbsp;·&nbsp; 1 yr 1 mo &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Hyderabad, India (On-site)</div>
+                  </div>
+                  <div className="exp-body">
+                    <p>Spearheaded frontend development for Zaanvar.com and Rconspace — a pet marketplace and a construction ERP platform. Built pixel-perfect, responsive UIs and integrated complex REST APIs.</p>
+                    <div className="exp-tags">
+                      <span>Next.js</span><span>React.js</span><span>REST APIs</span><span>GitHub</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Experience: Ideas To Impacts */}
+            <div className="timeline-item" data-aos="fade-right">
+              <div className="timeline-dot active"></div>
+              <div className="timeline-year">Feb '26</div>
+              <div className="timeline-content">
+                <div className="exp-card current" data-aos="fade-left">
+                  <div className="exp-header">
+                    <div className="exp-role">Software Developer</div>
+                    <div className="exp-company">Ideas To Impacts</div>
+                    <div className="exp-meta">Feb 2026 – Present &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Pune, India (On-site)</div>
+                    <span className="current-badge">Current</span>
+                  </div>
+                  <div className="exp-body">
+                    <p>Working as a Software Developer building Bondsmart.com — a digital investment platform for fixed-income corporate bonds in India. Developing both frontend and backend solutions with a focus on security and scalability.</p>
+                    <div className="exp-tags">
+                      <span>React.js</span><span>Node.js</span><span>PostgreSQL</span><span>Express.js</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -312,6 +377,86 @@ export default function Career() {
             display: flex;
             flex-direction: column-reverse;
           }
+          .exp-card { margin-left: 0; }
+        }
+
+        /* === Experience Cards === */
+        .timeline-dot.active {
+          border-color: crimson;
+          background: crimson;
+          transform: scale(1.2);
+        }
+
+        .exp-card {
+          background: #fff;
+          border: 1px solid #eee;
+          border-left: 4px solid #ccc;
+          border-radius: 12px;
+          padding: 20px 24px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+          transition: box-shadow 0.3s, transform 0.3s;
+          position: relative;
+        }
+        .exp-card:hover {
+          box-shadow: 0 8px 30px rgba(220,20,60,0.13);
+          transform: translateY(-3px);
+        }
+        .exp-card.current {
+          border-left-color: crimson;
+          background: #fff8f8;
+        }
+
+        .exp-header {
+          margin-bottom: 12px;
+        }
+        .exp-role {
+          font-size: 18px;
+          font-weight: 700;
+          color: #111;
+        }
+        .exp-company {
+          font-size: 15px;
+          font-weight: 600;
+          color: crimson;
+          margin: 3px 0;
+        }
+        .exp-meta {
+          font-size: 12px;
+          color: #888;
+        }
+        .current-badge {
+          display: inline-block;
+          background: crimson;
+          color: #fff;
+          font-size: 10px;
+          padding: 2px 8px;
+          border-radius: 20px;
+          font-weight: 600;
+          margin-top: 6px;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+        }
+
+        .exp-body p {
+          font-size: 14px;
+          color: #444;
+          line-height: 1.65;
+          margin-bottom: 12px;
+        }
+
+        .exp-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+        .exp-tags span {
+          background: #f3f4f6;
+          color: #333;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 3px 10px;
+          border-radius: 20px;
+          border: 1px solid #e5e7eb;
         }
       `}</style>
     </section>

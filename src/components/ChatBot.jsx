@@ -7,20 +7,20 @@ const KB = [
   {
     keys: ["name", "who are you", "who is shubham", "introduce", "yourself"],
     answer:
-      "👋 I'm **Shubham Pawar** — a passionate **MERN Stack & Frontend Developer** from Maharashtra, India. I love building modern, responsive web applications.",
+      "👋 I'm **Shubham Pawar** — a passionate **Full Stack Developer** from Maharashtra, India. I specialise in React, Next.js, Node.js and PostgreSQL. Currently working as a Software Developer at **Ideas To Impacts**, building Bondsmart.com.",
   },
   {
     keys: ["skills", "technology", "tech stack", "languages", "know what", "tools"],
     answer:
-      "💻 Shubham's skills include:\n• **Frontend:** React, Next.js, HTML, CSS, JavaScript\n• **Backend:** Node.js, Express\n• **Database:** MongoDB, MySQL, Prisma\n• **Others:** Git, GitHub, REST APIs",
+      "💻 Shubham's skills include:\n• **Frontend:** React.js, Next.js, HTML, CSS, JavaScript\n• **Backend:** Node.js, Express.js, Java, Spring Framework\n• **Database:** PostgreSQL, MongoDB, MySQL\n• **Others:** Git, GitHub, REST APIs, Redux, Microservices",
   },
   {
     keys: ["react"],
-    answer: "⚛️ React — 80% proficiency. Shubham has strong hands-on experience building component-based UIs with React.",
+    answer: "⚛️ React.js — 80% proficiency. Shubham has strong hands-on experience building component-based UIs with React, used across Bondsmart, Zaanvar, and Rconspace.",
   },
   {
     keys: ["next", "nextjs", "next.js"],
-    answer: "▲ Next.js — 80% proficiency. Shubham uses Next.js for SSR/SSG web applications.",
+    answer: "▲ Next.js — 80% proficiency. Shubham uses Next.js for SSR/SSG web applications. He built Zaanvar.com using Next.js.",
   },
   {
     keys: ["javascript", "js"],
@@ -32,7 +32,11 @@ const KB = [
   },
   {
     keys: ["node", "nodejs"],
-    answer: "🟢 Node.js — 60% proficiency. Shubham uses Node.js for backend REST APIs.",
+    answer: "🟢 Node.js — 60% proficiency. Shubham uses Node.js for backend REST APIs, including the Bondsmart platform.",
+  },
+  {
+    keys: ["postgresql", "postgres"],
+    answer: "🐘 PostgreSQL — Used in production on Bondsmart.com for storing bond investment data securely.",
   },
   {
     keys: ["mongodb", "mongo"],
@@ -43,30 +47,72 @@ const KB = [
     answer: "🐙 Git & GitHub — 80% proficiency. Shubham uses Git for version control across all projects.",
   },
   {
-    keys: ["mysql"],
-    answer: "🗄️ MySQL — 70% proficiency. Shubham has experience with relational database design.",
+    keys: ["mysql", "sql"],
+    answer: "🗄️ MySQL — 70% proficiency. Shubham has experience with relational database design. Also used during intern at Aivariant.",
+  },
+  {
+    keys: ["java", "spring"],
+    answer: "☕ Java — Shubham has strong Java foundations from his BE and internship at Aivariant. He also has experience with Spring Framework and Hibernate.",
   },
   {
     keys: ["education", "study", "college", "degree", "cgpa", "university", "diploma"],
     answer:
-      "🎓 Education:\n• **Diploma in Engineering** (2021)\n• **BE in Computer Science & Engineering** — Dr. Rajendra Gode Institute of Technology & Research, Amravati (2021–2024, CGPA: 8.3)",
+      "🎓 Education:\n• **Diploma in Engineering** (2021)\n• **BE in Computer Science & Engineering** — Dr. Rajendra Gode Institute of Technology & Research, Amravati (2021–2024, CGPA: 8.3)\n  University: Sant Gadge Baba Amravati University",
   },
   {
     keys: ["cgpa", "marks", "grade", "score", "percentage"],
     answer: "📊 Shubham completed his BE in CSE with a **CGPA of 8.3** from Dr. Rajendra Gode Institute, Amravati.",
   },
+  // ── Experience ────────────────────────────────────────────────────────────────
   {
-    keys: ["project", "work", "portfolio", "built", "created", "developed"],
+    keys: ["experience", "years", "working", "professional", "job", "career", "work history"],
     answer:
-      "🚀 Shubham has worked on multiple web projects involving React, Next.js, Node.js and MongoDB showcased in the Projects section of this portfolio.",
+      "💼 Shubham has **2+ years of professional experience**:\n\n1. 🏢 **Software Developer** — Ideas To Impacts *(Feb 2026 – Present, Pune)*\n   Building Bondsmart.com — a digital bond investment platform.\n\n2. 🏢 **Frontend Developer** — mr.chams *(Nov 2024 – Nov 2025, Hyderabad)*\n   Built Zaanvar.com & Rconspace using React.js, Next.js & REST APIs.\n\n3. 🏢 **Full-Stack Developer Intern** — Aivariant *(May 2024 – Oct 2024)*\n   Gained hands-on experience in Java, JavaScript, React & MySQL.",
   },
+  {
+    keys: ["ideas to impacts", "current job", "bondsmart company", "current company"],
+    answer:
+      "🏢 **Ideas To Impacts** — Shubham's current employer (Feb 2026 – Present).\nHe works as a **Software Developer** in Pune, building Bondsmart.com — a digital fixed-income investment platform for corporate bonds in India.",
+  },
+  {
+    keys: ["mr chams", "mr.chams", "mrcham"],
+    answer:
+      "🏢 **mr.chams** — Shubham worked here as a **Frontend Developer** (Nov 2024 – Nov 2025) in Hyderabad. He built Zaanvar.com (pet marketplace) and Rconspace (construction ERP) using Next.js, React.js, and REST APIs.",
+  },
+  {
+    keys: ["aivariant", "intern", "internship"],
+    answer:
+      "🏢 **Aivariant** — Shubham's first professional role as a **Full-Stack Developer Intern** (May 2024 – Oct 2024). He gained hands-on experience with Java, JavaScript, React, and MySQL.",
+  },
+  // ── Projects ──────────────────────────────────────────────────────────────────
+  {
+    keys: ["project", "work", "portfolio", "built", "created", "developed", "what did shubham build"],
+    answer:
+      "🚀 Shubham's key projects:\n\n• **Bondsmart.com** — Digital bond investment platform (Node.js, React, PostgreSQL, Express)\n• **Rconspace** — AI-powered Construction ERP (React.js, Node.js, REST APIs)\n• **Zaanvar.com** — Pet marketplace with adoption & vendor management (Next.js, REST APIs)\n• **Chatting App** — Real-time Java socket application\n• **Myntra Clone** — HTML/CSS/JS e-commerce clone\n• **Research Paper** — Published on text summarization systems",
+  },
+  {
+    keys: ["bondsmart"],
+    answer:
+      "💹 **Bondsmart.com** — A digital investment platform for fixed-income securities, allowing users to invest in listed and high-yield corporate bonds in India. Shubham built it at Ideas To Impacts using **Node.js, React.js, PostgreSQL, and Express.js**.",
+  },
+  {
+    keys: ["rconspace"],
+    answer:
+      "🏗️ **Rconspace** — An AI-powered ERP platform for the construction and real estate industry. It provides cloud-based project management, progress tracking, and workflow optimization. Shubham worked on it at mr.chams using **React.js, Node.js, and REST APIs**.",
+  },
+  {
+    keys: ["zaanvar"],
+    answer:
+      "🐾 **Zaanvar.com** — A pet-focused digital platform connecting pet owners and vendors. Features include pet adoption, sales, and care solutions. Shubham built the pet selling & vendor management modules at mr.chams using **Next.js and REST APIs**.",
+  },
+  // ── Contact ───────────────────────────────────────────────────────────────────
   {
     keys: ["contact", "email", "reach", "hire", "connect", "message"],
     answer:
-      "📬 You can contact Shubham at:\n• **Email:** pawarshubh980@gmail.com\n• **LinkedIn:** linkedin.com/in/shubham-pawar1703\n• **Location:** Maharashtra, India",
+      "📬 You can contact Shubham at:\n• **Email:** pawarshubh980@gmail.com\n• **LinkedIn:** linkedin.com/in/shubham-pawar1703\n• **GitHub:** github.com/Shubhhya17\n• **Location:** Pune / Maharashtra, India",
   },
   {
-    keys: ["github profile", "github link", "code"],
+    keys: ["github profile", "github link", "code", "repository"],
     answer: "🐙 Shubham's GitHub: **github.com/Shubhhya17** — check out his repositories there!",
   },
   {
@@ -74,23 +120,18 @@ const KB = [
     answer: "🔗 LinkedIn: **linkedin.com/in/shubham-pawar1703**",
   },
   {
-    keys: ["location", "address", "from", "city", "state", "india"],
-    answer: "📍 Shubham is based in **Maharashtra, India**.",
-  },
-  {
-    keys: ["experience", "years", "working", "professional"],
-    answer:
-      "💼 Shubham is a fresher developer with strong academic and project experience in React, Next.js, and the MERN stack, actively looking for opportunities.",
+    keys: ["location", "address", "from", "city", "state", "india", "pune"],
+    answer: "📍 Shubham is currently based in **Pune, Maharashtra, India**.",
   },
   {
     keys: ["freelance", "freelancer", "hire me", "available"],
     answer:
-      "✅ Yes! Shubham is available as a **Freelancer** and is open to full-time and contract opportunities in frontend/full-stack development.",
+      "✅ Shubham is **open to work** and available for full-time, contract, and freelance opportunities in frontend/full-stack development. You can reach him via the Contact section!",
   },
   {
     keys: ["mern", "full stack", "fullstack"],
     answer:
-      "🔧 Shubham is currently learning and building with the **MERN Stack** (MongoDB, Express, React, Node.js) to become a full-stack developer.",
+      "🔧 Shubham is a **Full Stack Developer** with experience in the MERN Stack (MongoDB, Express, React, Node.js) and also works with PostgreSQL and Next.js in production environments.",
   },
   {
     keys: ["certificate", "certification", "course", "achievement"],
@@ -104,12 +145,55 @@ const KB = [
   {
     keys: ["hello", "hi", "hey", "hii", "good morning", "good afternoon", "greet"],
     answer:
-      "👋 Hello! I'm Shubham's portfolio assistant. Ask me anything about Shubham — his skills, education, projects, contact info, or career!",
+      "👋 Hello! I'm Shubham's portfolio assistant. Ask me anything about Shubham — his skills, experience, projects, education, or contact info!",
   },
   {
     keys: ["thank", "thanks", "awesome", "great", "cool"],
     answer: "😊 You're welcome! Feel free to ask me anything else about Shubham.",
   },
+  {
+    keys: ["salary", "ctc", "package", "compensation"],
+    answer: "💼 For salary or compensation discussions, please contact Shubham directly at **pawarshubh980@gmail.com** or reach out via LinkedIn.",
+  },
+  {
+    keys: ["open to work", "looking for job", "job search", "opportunity"],
+    answer: "🟢 Yes! Shubham is **Open to Work** and actively looking for exciting opportunities in full-stack or frontend development. Drop him a message via the Contact section!",
+  },
+];
+
+// Funny fallback responses for unknown / random questions
+const FUNNY_REPLIES = [
+  // ── Original 8 ───────────────────────────────────────────────────────────────
+  "😄 Sir is currently busy with some very *important* work — that's exactly why I'm here! Ask me something about his skills or projects instead! 🚀",
+  "🤭 Shubham is in a meeting with his keyboard and some serious code right now. I'm holding the fort! Try asking: **'What are his skills?'**",
+  "😂 That's classified information! What I *can* tell you is that Shubham is a brilliant developer. Want to know about his projects?",
+  "🙈 Oops! That went right over my digital head. I'm Shubham's portfolio bot — I only know about his skills, projects, and experience. Ask me those!",
+  "🤖 Beep boop… question not found in my Shubham-database! Try: **'What technologies does he use?'** or **'Tell me about his experience'**",
+  "😅 I wish I could help, but Shubham only programmed me to know about *him* — and trust me, there's a lot to know! Ask away about his work.",
+  "🎯 Nice try, but I'm strictly a portfolio assistant! Ask me about Shubham's projects like **Bondsmart** or **Zaanvar** — those are way more interesting!",
+  "😆 Shubham said: *'If they ask something weird, just smile and redirect!'* — so... what would you like to know about his tech stack? 😊",
+
+  // ── 20 New ones ───────────────────────────────────────────────────────────────
+  "🔍 I searched all 1,024 memory cells and found nothing on that topic! But I *do* know everything about Shubham — want his skills or projects?",
+  "🧑‍💻 Error 404: Answer not found. But don't worry — I'm 200 OK on questions about Shubham's work experience and projects! Give it a try!",
+  "🎪 *Drumroll please* — nope, that's outside my expertise. But I can tell you that Shubham literally built **Bondsmart.com** in production. Ask me about that!",
+  "📡 Signal lost on that question... Reconnecting to Shubham's portfolio... Done! Now ask me about his skills or experience! 😄",
+  "🤷 I'm just a humble bot, not Google! But what I DO know is that Shubham has 2+ years of experience as a Full Stack Developer. Ask me more!",
+  "🎭 *Dramatically checks notes* ...nothing here on that topic. But there's a LOT about Shubham's work at **Ideas To Impacts**. Want to know?",
+  "🧠 My neural circuits are firing but... no result! This bot only runs on Shubham-data. Try: **'What are his projects?'** and watch me shine! ✨",
+  "🐣 Oh, you caught me still learning! I'm trained only on Shubham's portfolio — his skills, jobs, and projects are my entire universe 🌍",
+  "😎 Bold question! Shubham would probably answer that himself, but he's coding away at the moment. Ask me about his tech stack instead!",
+  "🎮 Achievement unlocked: *Asked the bot something it can't answer!* 🏆 Now try the real challenge — ask me about **Rconspace** or **Zaanvar.com**!",
+  "🌀 *Buffering...* I searched the Shubham-verse and came up empty! But his **CGPA of 8.3** and 2+ years of experience? That I know cold! 😄",
+  "🐧 Waddle waddle... I slipped on that one! I'm only programmed to talk about Shubham — his career, skills, and killer projects. Go ahead, ask!",
+  "🕵️ *Puts on detective hat* ...no clues found for that query! But I CAN tell you Shubham is currently building **Bondsmart.com** at Ideas To Impacts!",
+  "🎸 That question just played a wrong note in my circuits! Let me tune back in — ask me about Shubham's **MERN Stack** skills or his **PostgreSQL** experience!",
+  "🌮 Even I want to take a break from that question! How about we talk about something tasty — like how Shubham went from intern to full-time dev in 6 months? 🔥",
+  "🤡 Honk honk! Wrong chatbot, buddy! I'm the *serious* one — specialising in Shubham Pawar's career, projects, and skills. Let's talk about those!",
+  "🦄 That question is as rare as a unicorn — and I have no answer for it! But Shubham's journey from **Aivariant intern** to **Software Developer** is pretty magical too!",
+  "😴 Zzz... that question put my servers to sleep! Wake me up with something about Shubham — like his **React.js**, **Node.js**, or **Next.js** skills!",
+  "🎩 *Tips hat* Wonderful question, but alas — not in my repertoire! Now, if you'd like to know about Shubham's experience at **mr.chams** or **Ideas To Impacts**, I'm all ears!",
+  "🚀 Houston, we have a problem — that's outside my data! But Shubham's full-stack journey? I have the complete mission logs. Ask away, astronaut! 🌙",
 ];
 
 function getReply(userInput) {
@@ -119,7 +203,8 @@ function getReply(userInput) {
       return entry.answer;
     }
   }
-  return "🤔 I can only answer questions about Shubham Pawar's portfolio — skills, education, projects, contact info, and career. Try asking something like *'What are his skills?'* or *'How to contact him?'*";
+  // Funny fallback — pick one randomly so it feels fresh every time
+  return FUNNY_REPLIES[Math.floor(Math.random() * FUNNY_REPLIES.length)];
 }
 
 // ── Render markdown-style bold text ──────────────────────────────────────────
@@ -283,10 +368,12 @@ export default function ChatBot() {
         /* === Chat window === */
         .chatbot-window {
           position: fixed;
-          bottom: 148px;
+          bottom: 150px;
           right: 28px;
           width: 340px;
-          max-height: 500px;
+          /* never taller than viewport minus top + bottom clearance */
+          max-height: min(520px, calc(100vh - 180px));
+          height: min(520px, calc(100vh - 180px));
           background: #fff;
           border-radius: 18px;
           box-shadow: 0 10px 40px rgba(0,0,0,0.18);
@@ -344,12 +431,14 @@ export default function ChatBot() {
 
         /* === Messages === */
         .chatbot-messages {
-          flex: 1;
-          overflow-y: auto;
+          flex: 1 1 0;          /* grow AND shrink inside the fixed-height window */
+          overflow-y: auto;     /* scroll INSIDE the box — never push outside */
+          min-height: 0;        /* critical: allows flex child to shrink below content */
           padding: 14px 12px;
           display: flex;
           flex-direction: column;
           gap: 10px;
+          scroll-behavior: smooth;
         }
         .chatbot-messages::-webkit-scrollbar { width: 4px; }
         .chatbot-messages::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
@@ -464,7 +553,21 @@ export default function ChatBot() {
         .chatbot-send:hover { background: #b01030; }
 
         @media (max-width: 400px) {
-          .chatbot-window { width: calc(100vw - 20px); right: 10px; }
+          .chatbot-window {
+            width: calc(100vw - 20px);
+            right: 10px;
+            bottom: 90px;
+            max-height: calc(100vh - 120px);
+            height: calc(100vh - 120px);
+          }
+        }
+        /* Extra safety: very short screens (landscape mobile) */
+        @media (max-height: 600px) {
+          .chatbot-window {
+            max-height: calc(100vh - 100px);
+            height: calc(100vh - 100px);
+            bottom: 80px;
+          }
         }
       `}</style>
     </>
