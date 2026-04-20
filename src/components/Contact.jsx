@@ -52,24 +52,33 @@ export default function Contact() {
       const result = await res.json();
 
       if (res.ok) {
-        // ✨ BIG BLAST ANIMATION (Fireworks Effect)
-        const duration = 5 * 1000;
-        const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 45, spread: 360, ticks: 100, zIndex: 999 };
+        // ✨ SUPER BIG BLAST ANIMATION (Epic Fireworks Effect)
+        const count = 200;
+        const defaults = {
+          origin: { y: 0.7 },
+          zIndex: 9999,
+          colors: ['#dc143c', '#ffffff', '#ff0000', '#ffd700']
+        };
 
-        const randomInRange = (min, max) => Math.random() * (max - min) + min;
+        function fire(particleRatio, opts) {
+          confetti({
+            ...defaults,
+            ...opts,
+            particleCount: Math.floor(count * particleRatio)
+          });
+        }
 
-        const interval = setInterval(function() {
-          const timeLeft = animationEnd - Date.now();
+        fire(0.25, { spread: 26, startVelocity: 55 });
+        fire(0.2, { spread: 60 });
+        fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+        fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+        fire(0.1, { spread: 120, startVelocity: 45 });
 
-          if (timeLeft <= 0) {
-            return clearInterval(interval);
-          }
-
-          const particleCount = 70 * (timeLeft / duration);
-          confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
-          confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
-        }, 300);
+        // Extra bursts from sides
+        setTimeout(() => {
+           confetti({ ...defaults, particleCount: 40, angle: 60, spread: 55, origin: { x: 0 } });
+           confetti({ ...defaults, particleCount: 40, angle: 120, spread: 55, origin: { x: 1 } });
+        }, 150);
 
         setStatus({
           submitted: true,
