@@ -7,6 +7,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    number: "",
     subject: "",
     message: "",
   });
@@ -45,7 +46,7 @@ export default function Contact() {
           submitting: false,
           info: { error: false, msg: "Message sent successfully!" },
         });
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({ name: "", email: "", number: "", subject: "", message: "" });
       } else {
         setStatus({
           submitted: false,
@@ -63,7 +64,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="contact" id="contact">
+    <section className={styles.contactSection} id="contact">
       <div className="max-width">
         <h2 className="title" data-aos="fade-up">Contact me</h2>
         <div className={styles.contactContent}>
@@ -93,9 +94,18 @@ export default function Contact() {
                 <i className="fas fa-envelope"></i>
                 <div className={styles.info}>
                   <div className={styles.head}>Email</div>
-                  <div className={styles.subTitle}>pawarshubh890@gmail.com</div>
+                  <div className={styles.subTitle}>pawarshubh980@gmail.com</div>
                 </div>
               </div>
+              <a href="https://wa.me/919403394128" target="_blank" rel="noopener noreferrer" className={styles.whatsappRow}>
+                <div className={styles.row}>
+                  <i className="fab fa-whatsapp"></i>
+                  <div className={styles.info}>
+                    <div className={styles.head}>WhatsApp</div>
+                    <div className={styles.subTitle}>Get in Touch with WhatsApp</div>
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -124,16 +134,30 @@ export default function Contact() {
                   />
                 </div>
               </div>
-              <div className={styles.field}>
-                <input
-                  type="text"
-                  name="subject"
-                  placeholder="Subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  required
-                />
+              
+              <div className={styles.fields}>
+                <div className={`${styles.field} ${styles.number}`}>
+                  <input
+                    type="tel"
+                    name="number"
+                    placeholder="Phone Number"
+                    value={formData.number}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className={`${styles.field} ${styles.subject}`}>
+                  <input
+                    type="text"
+                    name="subject"
+                    placeholder="Subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
               </div>
+
               <div className={`${styles.field} ${styles.textarea}`}>
                 <textarea
                   name="message"
@@ -145,17 +169,20 @@ export default function Contact() {
                   required
                 ></textarea>
               </div>
+              
               <div className={styles.buttonArea}>
                 <button type="submit" disabled={status.submitting}>
                   {status.submitting ? "Sending..." : "Send message"}
                 </button>
               </div>
+
               {status.info.msg && (
                 <p style={{ 
-                  marginTop: "10px", 
-                  color: status.info.error ? "red" : "green",
-                  fontSize: "14px",
-                  fontWeight: "500"
+                  marginTop: "15px", 
+                  color: status.info.error ? "#ff4d4d" : "#25D366",
+                  fontSize: "15px",
+                  fontWeight: "600",
+                  textAlign: "center"
                 }}>
                   {status.info.msg}
                 </p>

@@ -154,7 +154,7 @@ const KB = [
   },
   {
     keys: ["salary", "ctc", "package", "compensation"],
-    answer: "💼 For salary or compensation discussions, please contact Shubham directly at **pawarshubh890@gmail.com** or reach out via LinkedIn.",
+    answer: "💼 For salary or compensation discussions, please contact Shubham directly at **pawarshubh980@gmail.com** or reach out via LinkedIn.",
   },
   {
     keys: ["open to work", "looking for job", "job search", "opportunity"],
@@ -341,4 +341,4 @@ export default function ChatBot() {
       )}
     </>
   );
-}
+}

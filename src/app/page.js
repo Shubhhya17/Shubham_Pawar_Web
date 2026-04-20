@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar"
-import ScrollTop from "@/components/ScrollTop"
 import About from "@/components/About"
 import Certificates from "@/components/Certificates"
 import Skills from "@/components/Skills"
@@ -17,7 +16,6 @@ export default function Page() {
     <>
       <AOSInit />
       <Navbar />
-      <ScrollTop />
       <Home />
       <About />
       <Certificates />

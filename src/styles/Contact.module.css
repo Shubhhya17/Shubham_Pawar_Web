@@ -58,12 +58,13 @@
 }
 
 .right form .textarea {
-  height: 80px;
+  height: 100px;
   width: 100%;
   margin-bottom: 15px;
 }
 
-.right form .name {
+.right form .name,
+.right form .number {
   margin-right: 10px;
 }
 
@@ -82,7 +83,7 @@
 
 .right form .field input:focus,
 .right form .textarea textarea:focus {
-  border-color: #b3b3b3;
+  border-color: crimson;
 }
 
 .right form .textarea textarea {
@@ -93,33 +94,44 @@
 .buttonArea {
   display: flex;
   align-items: center;
+  margin-top: 10px;
 }
 
+/* Attractive Send Message Button */
 .buttonArea button {
   color: #fff;
   display: block;
-  width: 160px !important;
-  height: 45px;
+  width: 100% !important; /* Full width for attractiveness on mobile, limited by container on desktop */
+  max-width: 220px;
+  height: 55px;
   outline: none;
   font-size: 18px;
-  font-weight: 500;
-  border-radius: 6px;
+  font-weight: 600;
+  border-radius: 12px;
   cursor: pointer;
-  flex-wrap: nowrap;
-  background: crimson;
-  border: 2px solid crimson;
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, crimson 0%, #8b0020 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
 }
 
 .buttonArea button:hover {
-  color: crimson;
-  background: none;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(220, 20, 60, 0.5);
+  background: linear-gradient(135deg, #ff1a4d 0%, crimson 100%);
+}
+
+.buttonArea button:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .buttonArea button:disabled {
-  background: #ccc;
-  border-color: #ccc;
+  background: #666;
+  box-shadow: none;
   cursor: not-allowed;
+  transform: none;
 }
 
 @media (max-width: 947px) {
@@ -133,7 +145,28 @@
   .right form .fields {
     flex-direction: column;
   }
-  .right form .name {
+  .right form .name,
+  .right form .number {
     margin: 0;
   }
+  .buttonArea button {
+    max-width: 100%;
+  }
+}
+
+
+/* WhatsApp Row in Icons List */
+.whatsappRow {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.whatsappRow:hover {
+  transform: translateX(10px);
+}
+
+.whatsappRow .row i {
+  color: #25d366; /* Using WhatsApp Green here so it's recognizable */
 }
