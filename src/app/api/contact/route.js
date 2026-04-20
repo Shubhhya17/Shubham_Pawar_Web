@@ -3,191 +3,156 @@ import { connectDB } from "../../../lib/db";
 import Viewer from "../../../models/Viewer";
 import nodemailer from "nodemailer";
 
-// ── Transporter: Gmail SMTP with verified app password ────────────────────────
-// Created once at module level — reuses TCP+TLS connection across requests.
+// ── Shared Constants ─────────────────────────────────────────────────────────
+const SENDER_EMAIL = "pawarshubh890@gmail.com";
+const OWNER_EMAIL  = "pawarshubh890@gmail.com";
+
+// ── Transporter Setup ────────────────────────────────────────────────────────
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 587,           // port 587 + STARTTLS is faster than 465 SSL
-  secure: false,       // STARTTLS
+  port: 587,
+  secure: false, // TLS
   auth: {
-    user: process.env.EMAIL_USER,   // pawarshubh890@gmail.com
-    pass: process.env.EMAIL_PASS,   // Gmail App Password (no spaces)
+    user: process.env.EMAIL_USER || SENDER_EMAIL,
+    pass: process.env.EMAIL_PASS, // App Password
   },
   pool: true,
   maxConnections: 3,
-  maxMessages: Infinity,
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 15000,
 });
 
-// Verify transporter on startup (logs to terminal, doesn't crash the server)
+// SMTP Status Verification
 transporter.verify((err) => {
-  if (err) console.error("❌ SMTP connection failed:", err.message);
-  else     console.log("✅ SMTP ready — Gmail connected");
+  if (err) console.error("❌ SMTP Error:", err.message);
+  else console.log("✅ SMTP Ready (pawarshubh890@gmail.com)");
 });
+
+
 
 export async function POST(req) {
   try {
     const { name, email, subject, message } = await req.json();
 
     if (!name || !email || !subject || !message) {
-      return NextResponse.json(
-        { error: "All fields are required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "All fields are required" }, { status: 400 });
     }
 
-    // SENDER  = the Gmail account that has the app password
-    // OWNER   = pawarshubh890@gmail.com — where YOU receive contact alerts
-    const SENDER     = process.env.EMAIL_USER;
-    const OWNER      = process.env.OWNER_EMAIL || process.env.EMAIL_USER;
-
-    // ── 1. Notification email TO Shubham's main inbox ─────────────────────────
+    // ── 1. Notification Email (To Shubham) ───────────────────────────────────
     const notifyOptions = {
-      from: `"Portfolio Bot" <${SENDER}>`,
-      to: OWNER,                        // → pawarshubh890@gmail.com
-      replyTo: email,                   // reply goes straight to the visitor
-      subject: `📩 New Contact: ${name}`,
+      from: `"Portfolio Alerts" <${SENDER_EMAIL}>`,
+      to: OWNER_EMAIL,
+      replyTo: email,
+      subject: `📧 New Message: ${name} - ${subject}`,
       html: `
-        <div style="font-family:Arial,sans-serif;background:#f4f4f4;padding:20px;">
-          <div style="max-width:600px;margin:auto;background:#fff;border-radius:10px;
-                      overflow:hidden;box-shadow:0 0 10px rgba(0,0,0,0.1);">
-            <div style="background:crimson;color:white;padding:15px 20px;">
-              <h2 style="margin:0;">New Contact Message 📬</h2>
+        <div style="font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; background:#0a0a0a; padding:40px 20px; color:#eee;">
+          <div style="max-width:600px; margin:auto; background:#161616; border:1px solid #333; border-radius:16px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.5);">
+            <div style="background:linear-gradient(135deg, #dc143c 0%, #8b0020 100%); padding:30px; text-align:center;">
+              <h2 style="margin:0; color:#fff; font-size:24px; letter-spacing:1px;">New Lead Acquired 🚀</h2>
             </div>
-            <div style="padding:20px;">
-              <table style="width:100%;border-collapse:collapse;margin-top:10px;">
+            <div style="padding:30px;">
+              <p style="color:#aaa; font-size:14px; margin-bottom:25px; border-bottom:1px solid #333; padding-bottom:15px;">
+                You received a new inquiry from your portfolio website.
+              </p>
+              <table style="width:100%; border-collapse:collapse;">
                 <tr>
-                  <td style="padding:10px;font-weight:bold;width:100px;">👤 Name:</td>
-                  <td style="padding:10px;">${name}</td>
-                </tr>
-                <tr style="background:#f9f9f9;">
-                  <td style="padding:10px;font-weight:bold;">📧 Email:</td>
-                  <td style="padding:10px;">${email}</td>
+                  <td style="padding:12px 0; color:#dc143c; font-weight:bold; width:100px; font-size:13px; text-transform:uppercase;">Name</td>
+                  <td style="padding:12px 0; color:#fff; font-size:16px;">${name}</td>
                 </tr>
                 <tr>
-                  <td style="padding:10px;font-weight:bold;">📝 Subject:</td>
-                  <td style="padding:10px;">${subject}</td>
+                  <td style="padding:12px 0; color:#dc143c; font-weight:bold; font-size:13px; text-transform:uppercase;">Email</td>
+                  <td style="padding:12px 0; color:#fff; font-size:16px;">${email}</td>
                 </tr>
-                <tr style="background:#f9f9f9;">
-                  <td style="padding:10px;font-weight:bold;">💬 Message:</td>
-                  <td style="padding:10px;white-space:pre-wrap;">${message}</td>
+                <tr>
+                  <td style="padding:12px 0; color:#dc143c; font-weight:bold; font-size:13px; text-transform:uppercase;">Subject</td>
+                  <td style="padding:12px 0; color:#fff; font-size:16px;">${subject}</td>
                 </tr>
               </table>
+              <div style="margin-top:25px; padding:20px; background:#222; border-radius:12px; border-left:4px solid #dc143c;">
+                <p style="margin:0; color:#ddd; line-height:1.6; font-size:15px; white-space:pre-wrap;">${message}</p>
+              </div>
+              <div style="margin-top:30px; text-align:center;">
+                <a href="mailto:${email}" style="display:inline-block; padding:14px 30px; background:#dc143c; color:#fff; text-decoration:none; border-radius:8px; font-weight:600; font-size:14px;">Reply Instantly</a>
+              </div>
             </div>
-            <div style="background:#f1f1f1;text-align:center;padding:10px;font-size:12px;color:#777;">
-              Sent from Shubham's portfolio 🚀
+            <div style="background:#111; padding:15px; text-align:center; font-size:11px; color:#555; border-top:1px solid #222;">
+              ID: ${Date.now()} | Portfolio Engine v2.0
             </div>
           </div>
         </div>`,
     };
 
-    // ── 2. Thank-you email TO the visitor ─────────────────────────────────────
+    // ── 2. Thank-You Email (To Visitor) ──────────────────────────────────────
     const thankYouOptions = {
-      from: `"Shubham Pawar" <${SENDER}>`,
+      from: `"Shubham Pawar" <${SENDER_EMAIL}>`,
       to: email,
-      replyTo: OWNER,                   // replies from visitor go to pawarshubh890
-      subject: `✅ Thanks for reaching out, ${name}! — Shubham Pawar`,
+      replyTo: OWNER_EMAIL,
+      subject: `✨ Nice to meet you, ${name}!`,
       html: `
-        <div style="font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f4;padding:30px 10px;">
-          <div style="max-width:580px;margin:auto;background:#fff;border-radius:14px;
-                      overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
-            <div style="background:linear-gradient(135deg,crimson 0%,#8b0020 100%);
-                        padding:28px 30px;text-align:center;">
-              <h1 style="color:#fff;margin:0;font-size:24px;">Thank You, ${name}! 🙏</h1>
-              <p style="color:rgba(255,255,255,0.85);margin:8px 0 0;font-size:14px;">
-                Your message has been received
-              </p>
+        <div style="font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; background:#f4f4f4; padding:40px 20px;">
+          <div style="max-width:600px; margin:auto; background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,0.05);">
+            <div style="background:#0a0a0a; padding:40px 30px; text-align:center;">
+              <h1 style="color:#fff; margin:0; font-size:28px; font-weight:700;">Thanks for reaching out!</h1>
+              <p style="color:#888; font-size:16px; margin-top:10px;">Hello ${name}, I've received your message.</p>
             </div>
-            <div style="padding:30px 30px 20px;">
-              <p style="font-size:15px;color:#333;line-height:1.7;margin-top:0;">
-                Hi <strong>${name}</strong>,
+            <div style="padding:40px 30px;">
+              <p style="font-size:16px; color:#333; line-height:1.8;">
+                Hi there! Thanks for visiting my portfolio and taking the time to send a message. 
+                I usually respond within 24 hours, so you should hear from me very soon.
               </p>
-              <p style="font-size:15px;color:#333;line-height:1.7;">
-                Thank you for getting in touch! I've received your message and will
-                get back to you within 24–48 hours.
-              </p>
-              <div style="background:#fdf2f4;border-left:4px solid crimson;
-                          border-radius:8px;padding:16px 20px;margin:20px 0;">
-                <p style="margin:0 0 6px;font-size:13px;color:#888;
-                           text-transform:uppercase;letter-spacing:0.5px;">Your message</p>
-                <p style="margin:0 0 8px;font-size:14px;color:#555;">
-                  <strong>Subject:</strong> ${subject}
-                </p>
-                <p style="margin:0;font-size:14px;color:#555;line-height:1.6;
-                           white-space:pre-wrap;">${message}</p>
+              
+              <div style="margin:30px 0; padding:20px; border-radius:12px; border:1px dashed #ddd; background:#fafafa;">
+                <p style="margin:0 0 10px; font-size:12px; color:#999; text-transform:uppercase; letter-spacing:1px;">Summary of your message</p>
+                <p style="margin:0; color:#555; font-size:14px; font-style:italic;">"${subject}"</p>
               </div>
-              <div style="text-align:center;margin:24px 0;">
-                <a href="https://www.linkedin.com/in/shubham-pawar1703/" target="_blank"
-                   style="display:inline-block;background:crimson;color:#fff;
-                          text-decoration:none;padding:11px 24px;border-radius:8px;
-                          font-size:14px;font-weight:600;margin:0 6px;">
-                  🔗 LinkedIn
-                </a>
-                <a href="https://github.com/Shubhhya17" target="_blank"
-                   style="display:inline-block;background:#111;color:#fff;
-                          text-decoration:none;padding:11px 24px;border-radius:8px;
-                          font-size:14px;font-weight:600;margin:0 6px;">
-                  🐙 GitHub
-                </a>
-              </div>
-              <p style="font-size:15px;color:#333;line-height:1.7;">
-                Looking forward to connecting!<br/>
-                <strong>Shubham Pawar</strong><br/>
-                <span style="color:#888;font-size:13px;">
-                  Full Stack Developer · Pune, India
-                </span>
+
+              <p style="font-size:16px; color:#333; line-height:1.8;">
+                In the meantime, feel free to check out my latest work on GitHub or connect with me on LinkedIn for faster communication.
               </p>
+
+              <div style="margin-top:35px; display:flex; justify-content:center; gap:10px;">
+                <a href="https://linkedin.com/in/shubham-pawar1703/" style="display:inline-block; padding:12px 25px; background:#0077b5; color:#fff; text-decoration:none; border-radius:10px; font-weight:600; font-size:14px; margin-right:10px;">LinkedIn</a>
+                <a href="https://github.com/Shubhhya17" style="display:inline-block; padding:12px 25px; background:#24292e; color:#fff; text-decoration:none; border-radius:10px; font-weight:600; font-size:14px;">GitHub</a>
+              </div>
             </div>
-            <div style="background:#f9f9f9;border-top:1px solid #eee;text-align:center;
-                        padding:16px;font-size:12px;color:#999;">
-              📧 pawarshubh890@gmail.com &nbsp;|&nbsp; 📍 Pune, Maharashtra, India<br/>
-              Automated response from Shubham's portfolio website.
+            <div style="background:#f9f9f9; padding:30px; text-align:center; border-top:1px solid #eee;">
+              <p style="margin:0; color:#888; font-size:14px; font-weight:600;">Shubham Pawar</p>
+              <p style="margin:5px 0 0; color:#aaa; font-size:12px;">Full Stack Developer | Pune, India</p>
+              <div style="margin-top:20px; font-size:11px; color:#ccc;">
+                This is an automated response. Please reply directly to this email if you need urgent assistance.
+              </div>
             </div>
           </div>
         </div>`,
     };
 
-    // ── 3. Save to DB in background (non-blocking) ─────────────────────────────
+    // ── Save to DB ───────────────────────────────────────────────────────────
     (async () => {
       try {
         await connectDB();
         await new Viewer({ name, email, subject, message }).save();
-        console.log("✅ Contact saved to DB");
+        console.log("✅ Contact stored in database");
       } catch (dbErr) {
-        console.error("⚠️  DB save failed:", dbErr.message);
+        console.error("⚠️ Database Error:", dbErr.message);
       }
     })();
 
-    // ── 4. Send BOTH emails in parallel, then respond ─────────────────────────
-    // We await here so we can catch real SMTP errors and return a proper error.
-    // Promise.all sends both simultaneously — total time = max(e1, e2), not sum.
+    // ── Send Emails in Parallel ──────────────────────────────────────────────
     try {
       await Promise.all([
         transporter.sendMail(notifyOptions),
         transporter.sendMail(thankYouOptions),
       ]);
-      console.log("✅ Both emails sent successfully");
+      console.log("✅ Emails dispatched successfully");
+      return NextResponse.json({ success: true, message: "Message sent successfully!" }, { status: 201 });
     } catch (mailErr) {
-      console.error("❌ Email send error:", mailErr.message);
-      // Still return success to user — DB was saved; email issue is logged
+      console.error("❌ SMTP Delivery Failed:", mailErr.message);
       return NextResponse.json(
-        { success: true, warning: "Message saved but email could not be sent." },
+        { success: true, warning: "Saved to DB, but email delivery failed. Check SMTP credentials." },
         { status: 201 }
       );
     }
 
-    return NextResponse.json(
-      { success: true, message: "Message sent successfully!" },
-      { status: 201 }
-    );
-
   } catch (error) {
-    console.error("❌ Contact API error:", error);
-    return NextResponse.json(
-      { error: "Failed to send message. Please try again." },
-      { status: 500 }
-    );
+    console.error("❌ Contact API Crash:", error);
+    return NextResponse.json({ error: "Critcal server error. Please try again later." }, { status: 500 });
   }
 }
