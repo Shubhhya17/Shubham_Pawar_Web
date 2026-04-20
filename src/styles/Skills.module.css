@@ -1,0 +1,93 @@
+.skillsContent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.column {
+  width: calc(50% - 30px);
+}
+
+.left .text {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.left p {
+  text-align: justify;
+}
+
+.left a {
+  display: inline-block;
+  background: crimson;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 16px;
+  margin-top: 20px;
+  border-radius: 6px;
+  border: 2px solid crimson;
+  transition: all 0.3s ease;
+}
+
+.left a:hover {
+  color: crimson;
+  background: none;
+}
+
+.right .bars {
+  margin-bottom: 15px;
+}
+
+.right .info {
+  display: flex;
+  margin-bottom: 5px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.right span {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.right .line {
+  height: 5px;
+  width: 100%;
+  background: lightgrey;
+  position: relative;
+}
+
+.right .line::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: crimson;
+}
+
+/* Individual Skill Progress */
+.React::before { width: 64%; }
+.Nextjs::before { width: 80%; }
+.JavaScript::before { width: 70%; }
+.CSS::before { width: 80%; }
+.Nodejs::before { width: 60%; }
+.MongoDB::before { width: 70%; }
+.GitHub::before { width: 80%; }
+.MySQL::before { width: 70%; }
+
+@media (max-width: 947px) {
+  .column {
+    width: 100%;
+    margin-bottom: 35px;
+  }
+}
+
+@media (max-width: 500px) {
+  .left .text {
+    font-size: 19px;
+  }
+}

@@ -1,0 +1,90 @@
+.home {
+  display: flex;
+  height: 100vh;
+  color: #fff;
+  min-height: 500px;
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.home .maxWidth {
+  width: 100%;
+  display: flex;
+}
+
+.home .maxWidth .row {
+  margin-right: 0;
+}
+
+.homeContent .text1 {
+  font-size: 27px;
+}
+
+.homeContent .text2 {
+  font-size: 75px;
+  font-weight: 600;
+  margin-left: -3px;
+}
+
+.homeContent .text3 {
+  font-size: 40px;
+  margin: 5px 0;
+}
+
+.homeContent .text3 span {
+  color: crimson;
+  font-weight: 500;
+}
+
+.homeContent a {
+  display: inline-block;
+  background: crimson;
+  color: #fff;
+  font-size: 25px;
+  padding: 12px 36px;
+  margin-top: 20px;
+  font-weight: 400;
+  border-radius: 6px;
+  border: 2px solid crimson;
+  transition: all 0.3s ease;
+}
+
+.homeContent a:hover {
+  color: crimson;
+  background: none;
+}
+
+@media (max-width: 947px) {
+  .homeContent .text2 {
+    font-size: 70px;
+  }
+  .homeContent .text3 {
+    font-size: 35px;
+  }
+  .homeContent a {
+    font-size: 23px;
+    padding: 10px 30px;
+  }
+}
+
+@media (max-width: 690px) {
+  .homeContent .text2 {
+    font-size: 60px;
+  }
+  .homeContent .text3 {
+    font-size: 32px;
+  }
+  .homeContent a {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .homeContent .text2 {
+    font-size: 50px;
+  }
+  .homeContent .text3 {
+    font-size: 27px;
+  }
+}

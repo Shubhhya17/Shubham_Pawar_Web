@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import styles from "../styles/Projects.module.css";
 
 // 1. Define the project data in an array of objects
 const projectsData = [
@@ -77,7 +78,7 @@ export default function Projects() {
       <div className="max-width">
         <h2 className="title" data-aos="fade-up">Projects</h2>
 
-        <div className="carousel" data-aos="zoom-in">
+        <div className={styles.carousel} data-aos="zoom-in">
           <Swiper
             modules={[Autoplay]}
             spaceBetween={30}
@@ -96,41 +97,30 @@ export default function Projects() {
             {/* 2. Map through the project data */}
             {projectsData.map((project) => (
               <SwiperSlide key={project.id}>
-                <div className="card">
-                  <div className="box">
+                <div className={styles.card}>
+                  <div className={styles.box}>
                     <img src={project.image} alt={project.title} />
 
                     {/* Badge */}
                     {project.badge && (
-                      <span style={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "10px",
-                        background: "crimson",
-                        color: "#fff",
-                        fontSize: "10px",
-                        padding: "3px 8px",
-                        borderRadius: "20px",
-                        fontWeight: 600,
-                        letterSpacing: "0.5px",
-                      }}>
+                      <span className={styles.badge}>
                         {project.badge}
                       </span>
                     )}
 
                     {/* Project Name */}
-                    <div className="text" style={{ color: "white", fontWeight: 700 }}>
+                    <div className={styles.text} style={{ color: "white", fontWeight: 700 }}>
                       {project.title}
                     </div>
 
                     {/* Description */}
-                    <p style={{ color: "#e0e0e0", fontSize: "13px", lineHeight: "1.5", margin: "6px 0" }}>
+                    <p className={styles.description}>
                       {project.description}
                     </p>
 
                     {/* Tech stack */}
                     {project.tech && (
-                      <p style={{ color: "crimson", fontSize: "11px", fontWeight: 600, marginTop: "6px" }}>
+                      <p className={styles.tech}>
                         🛠 {project.tech}
                       </p>
                     )}
@@ -141,17 +131,7 @@ export default function Projects() {
                         href={project.link}
                         target="_blank"
                         rel="noreferrer"
-                        style={{
-                          display: "inline-block",
-                          marginTop: "10px",
-                          color: "#fff",
-                          fontSize: "12px",
-                          border: "1px solid crimson",
-                          borderRadius: "4px",
-                          padding: "4px 10px",
-                          textDecoration: "none",
-                          transition: "background 0.2s",
-                        }}
+                        className={styles.viewLink}
                       >
                         View Project →
                       </a>
@@ -165,4 +145,4 @@ export default function Projects() {
       </div>
     </section>
   );
-}
+}

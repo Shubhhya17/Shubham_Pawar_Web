@@ -1,0 +1,148 @@
+.careerSection {
+  background-color: #0a0a0a;
+  color: #fff;
+  padding: 100px 0;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+.careerSection .title::after {
+  content: "my journey";
+  background: #0a0a0a;
+}
+
+.timelineContainer {
+  position: relative;
+  max-width: 1000px;
+  margin: 50px auto 0;
+  padding: 0 20px;
+}
+
+.timelineLine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(220, 20, 60, 0.2);
+  transform: translateX(-50%);
+}
+
+.timelineItem {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.timelineItem:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.timelineContent {
+  width: 45%;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.timelineContent:hover {
+  transform: translateY(-10px);
+  background: rgba(220, 20, 60, 0.05);
+  border-color: rgba(220, 20, 60, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.timelineDot {
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  width: 16px;
+  height: 16px;
+  background: #0a0a0a;
+  border: 3px solid crimson;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  box-shadow: 0 0 15px rgba(220, 20, 60, 0.5);
+  transition: all 0.3s ease;
+}
+
+.timelineItem:hover .timelineDot {
+  background: crimson;
+  transform: translateX(-50%) scale(1.3);
+  box-shadow: 0 0 20px crimson;
+}
+
+.timelineDate {
+  font-size: 14px;
+  font-weight: 600;
+  color: crimson;
+  margin-bottom: 15px;
+  display: block;
+  letter-spacing: 1px;
+}
+
+.timelineContent h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.timelineContent h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #ccc;
+  margin-bottom: 15px;
+}
+
+.timelineContent p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #aaa;
+}
+
+.techStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.techItem {
+  font-size: 11px;
+  background: rgba(220, 20, 60, 0.1);
+  color: crimson;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .timelineLine {
+    left: 20px;
+    transform: none;
+  }
+  .timelineItem, .timelineItem:nth-child(even) {
+    flex-direction: row;
+    margin-bottom: 40px;
+  }
+  .timelineContent {
+    width: calc(100% - 60px);
+    margin-left: 60px;
+  }
+  .timelineDot {
+    left: 20px;
+    transform: translateX(-50%);
+  }
+  .timelineItem:hover .timelineDot {
+    transform: translateX(-50%) scale(1.3);
+  }
+}

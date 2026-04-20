@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import styles from "../styles/ChatBot.module.css";
 
 // ── Portfolio knowledge base ──────────────────────────────────────────────────
 const KB = [
@@ -153,7 +154,7 @@ const KB = [
   },
   {
     keys: ["salary", "ctc", "package", "compensation"],
-    answer: "💼 For salary or compensation discussions, please contact Shubham directly at **pawarshubh980@gmail.com** or reach out via LinkedIn.",
+    answer: "💼 For salary or compensation discussions, please contact Shubham directly at **pawarshubh890@gmail.com** or reach out via LinkedIn.",
   },
   {
     keys: ["open to work", "looking for job", "job search", "opportunity"],
@@ -257,7 +258,7 @@ export default function ChatBot() {
     <>
       {/* === Floating Trigger Button === */}
       <button
-        className="chatbot-trigger"
+        className={styles.chatbotTrigger}
         onClick={() => setOpen((o) => !o)}
         aria-label="Toggle AI assistant"
         title="Chat with Shubham's AI"
@@ -267,23 +268,23 @@ export default function ChatBot() {
 
       {/* === Chat Window === */}
       {open && (
-        <div className="chatbot-window">
+        <div className={styles.chatbotWindow}>
           {/* Header */}
-          <div className="chatbot-header">
-            <div className="chatbot-avatar">SP</div>
+          <div className={styles.chatbotHeader}>
+            <div className={styles.chatbotAvatar}>SP</div>
             <div>
-              <div className="chatbot-name">Shubham's AI</div>
-              <div className="chatbot-status">● Online</div>
+              <div className={styles.chatbotName}>Shubham's AI</div>
+              <div className={styles.chatbotStatus}>● Online</div>
             </div>
-            <button className="chatbot-close" onClick={() => setOpen(false)}>✕</button>
+            <button className={styles.chatbotClose} onClick={() => setOpen(false)}>✕</button>
           </div>
 
           {/* Messages */}
-          <div className="chatbot-messages">
+          <div className={styles.chatbotMessages}>
             {messages.map((msg, i) => (
-              <div key={i} className={`chatbot-msg ${msg.role}`}>
-                {msg.role === "bot" && <div className="chatbot-bot-icon">🤖</div>}
-                <div className="chatbot-bubble">
+              <div key={i} className={`${styles.chatbotMsg} ${styles[msg.role]}`}>
+                {msg.role === "bot" && <div className={styles.chatbotBotIcon}>🤖</div>}
+                <div className={styles.chatbotBubble}>
                   {msg.text.split("\n").map((line, li) => (
                     <p key={li}>{renderText(line)}</p>
                   ))}
@@ -291,9 +292,9 @@ export default function ChatBot() {
               </div>
             ))}
             {typing && (
-              <div className="chatbot-msg bot">
-                <div className="chatbot-bot-icon">🤖</div>
-                <div className="chatbot-bubble typing-dots">
+              <div className={`${styles.chatbotMsg} ${styles.bot}`}>
+                <div className={styles.chatbotBotIcon}>🤖</div>
+                <div className={`${styles.chatbotBubble} ${styles.typingDots}`}>
                   <span /><span /><span />
                 </div>
               </div>
@@ -302,11 +303,11 @@ export default function ChatBot() {
           </div>
 
           {/* Quick suggestions */}
-          <div className="chatbot-suggestions">
+          <div className={styles.chatbotSuggestions}>
             {["Skills", "Education", "Projects", "Contact"].map((s) => (
               <button
                 key={s}
-                className="chatbot-chip"
+                className={styles.chatbotChip}
                 onClick={() => {
                   setInput(s);
                   setTimeout(() => {
@@ -326,250 +327,18 @@ export default function ChatBot() {
           </div>
 
           {/* Input */}
-          <div className="chatbot-input-row">
+          <div className={styles.chatbotInputRow}>
             <input
-              className="chatbot-input"
+              className={styles.chatbotInput}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKey}
               placeholder="Ask about Shubham..."
             />
-            <button className="chatbot-send" onClick={send}>➤</button>
+            <button className={styles.chatbotSend} onClick={send}>➤</button>
           </div>
         </div>
       )}
-
-      <style jsx global>{`
-        /* === Trigger button === */
-        .chatbot-trigger {
-          position: fixed;
-          bottom: 80px;
-          right: 28px;
-          width: 56px;
-          height: 56px;
-          border-radius: 50%;
-          background: crimson;
-          color: #fff;
-          border: none;
-          font-size: 24px;
-          cursor: pointer;
-          z-index: 9999;
-          box-shadow: 0 4px 20px rgba(220, 20, 60, 0.5);
-          transition: transform 0.3s, box-shadow 0.3s;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .chatbot-trigger:hover {
-          transform: scale(1.1);
-          box-shadow: 0 6px 28px rgba(220, 20, 60, 0.7);
-        }
-
-        /* === Chat window === */
-        .chatbot-window {
-          position: fixed;
-          bottom: 150px;
-          right: 28px;
-          width: 340px;
-          /* never taller than viewport minus top + bottom clearance */
-          max-height: min(520px, calc(100vh - 180px));
-          height: min(520px, calc(100vh - 180px));
-          background: #fff;
-          border-radius: 18px;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.18);
-          z-index: 9999;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          animation: chatSlideIn 0.3s ease;
-        }
-        @keyframes chatSlideIn {
-          from { opacity: 0; transform: translateY(20px) scale(0.95); }
-          to   { opacity: 1; transform: translateY(0)  scale(1); }
-        }
-
-        /* === Header === */
-        .chatbot-header {
-          background: crimson;
-          color: #fff;
-          padding: 14px 16px;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-        .chatbot-avatar {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background: rgba(255,255,255,0.25);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 700;
-          font-size: 14px;
-          flex-shrink: 0;
-        }
-        .chatbot-name {
-          font-weight: 700;
-          font-size: 15px;
-        }
-        .chatbot-status {
-          font-size: 11px;
-          opacity: 0.85;
-          color: #aaffaa;
-        }
-        .chatbot-close {
-          margin-left: auto;
-          background: none;
-          border: none;
-          color: #fff;
-          font-size: 18px;
-          cursor: pointer;
-          opacity: 0.8;
-        }
-        .chatbot-close:hover { opacity: 1; }
-
-        /* === Messages === */
-        .chatbot-messages {
-          flex: 1 1 0;          /* grow AND shrink inside the fixed-height window */
-          overflow-y: auto;     /* scroll INSIDE the box — never push outside */
-          min-height: 0;        /* critical: allows flex child to shrink below content */
-          padding: 14px 12px;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          scroll-behavior: smooth;
-        }
-        .chatbot-messages::-webkit-scrollbar { width: 4px; }
-        .chatbot-messages::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
-
-        .chatbot-msg {
-          display: flex;
-          align-items: flex-end;
-          gap: 6px;
-        }
-        .chatbot-msg.user {
-          flex-direction: row-reverse;
-        }
-        .chatbot-bot-icon {
-          font-size: 20px;
-          flex-shrink: 0;
-          line-height: 1;
-        }
-
-        .chatbot-bubble {
-          max-width: 78%;
-          padding: 10px 14px;
-          border-radius: 16px;
-          font-size: 14px;
-          line-height: 1.5;
-          word-break: break-word;
-        }
-        .chatbot-bubble p { margin: 2px 0; }
-
-        .chatbot-msg.bot .chatbot-bubble {
-          background: #f3f4f6;
-          color: #111;
-          border-bottom-left-radius: 4px;
-        }
-        .chatbot-msg.user .chatbot-bubble {
-          background: crimson;
-          color: #fff;
-          border-bottom-right-radius: 4px;
-        }
-
-        /* === Typing dots === */
-        .typing-dots {
-          display: flex;
-          gap: 5px;
-          align-items: center;
-          padding: 12px 16px;
-        }
-        .typing-dots span {
-          width: 8px;
-          height: 8px;
-          background: #aaa;
-          border-radius: 50%;
-          display: inline-block;
-          animation: typingBounce 1.2s infinite;
-        }
-        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typingBounce {
-          0%, 80%, 100% { transform: translateY(0); }
-          40% { transform: translateY(-6px); }
-        }
-
-        /* === Quick suggestions === */
-        .chatbot-suggestions {
-          display: flex;
-          gap: 6px;
-          padding: 6px 12px;
-          overflow-x: auto;
-          flex-shrink: 0;
-        }
-        .chatbot-suggestions::-webkit-scrollbar { display: none; }
-        .chatbot-chip {
-          background: #fff0f3;
-          border: 1px solid crimson;
-          color: crimson;
-          border-radius: 20px;
-          padding: 4px 12px;
-          font-size: 12px;
-          cursor: pointer;
-          white-space: nowrap;
-          transition: background 0.2s;
-        }
-        .chatbot-chip:hover { background: crimson; color: #fff; }
-
-        /* === Input === */
-        .chatbot-input-row {
-          display: flex;
-          border-top: 1px solid #eee;
-          padding: 10px 12px;
-          gap: 8px;
-          flex-shrink: 0;
-        }
-        .chatbot-input {
-          flex: 1;
-          border: 1px solid #e5e7eb;
-          border-radius: 10px;
-          padding: 8px 12px;
-          font-size: 14px;
-          outline: none;
-          transition: border-color 0.2s;
-        }
-        .chatbot-input:focus { border-color: crimson; }
-        .chatbot-send {
-          background: crimson;
-          color: #fff;
-          border: none;
-          border-radius: 10px;
-          padding: 8px 14px;
-          font-size: 16px;
-          cursor: pointer;
-          transition: background 0.2s;
-        }
-        .chatbot-send:hover { background: #b01030; }
-
-        @media (max-width: 400px) {
-          .chatbot-window {
-            width: calc(100vw - 20px);
-            right: 10px;
-            bottom: 90px;
-            max-height: calc(100vh - 120px);
-            height: calc(100vh - 120px);
-          }
-        }
-        /* Extra safety: very short screens (landscape mobile) */
-        @media (max-height: 600px) {
-          .chatbot-window {
-            max-height: calc(100vh - 100px);
-            height: calc(100vh - 100px);
-            bottom: 80px;
-          }
-        }
-      `}</style>
     </>
   );
-}
+}

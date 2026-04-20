@@ -1,23 +1,33 @@
 "use client";
+
 import { useState } from "react";
+import styles from "../styles/Contact.module.css";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
   });
-  const [status, setStatus] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const [status, setStatus] = useState({
+    submitted: false,
+    submitting: false,
+    info: { error: false, msg: null },
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Sending...");
+    setStatus((prevStatus) => ({ ...prevStatus, submitting: true }));
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -27,160 +37,134 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
+      const result = await res.json();
+
       if (res.ok) {
-        setStatus("Message sent successfully!");
+        setStatus({
+          submitted: true,
+          submitting: false,
+          info: { error: false, msg: "Message sent successfully!" },
+        });
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        setStatus(data.error || "Failed to send message.");
+        setStatus({
+          submitted: false,
+          submitting: false,
+          info: { error: true, msg: result.error || "Something went wrong." },
+        });
       }
     } catch (error) {
-      console.error("Error:", error);
-      setStatus("An error occurred. Please try again.");
+      setStatus({
+        submitted: false,
+        submitting: false,
+        info: { error: true, msg: "Failed to send message." },
+      });
     }
   };
 
   return (
     <section className="contact" id="contact">
-
       <div className="max-width">
-
         <h2 className="title" data-aos="fade-up">Contact me</h2>
-
-        <div className="contact-content">
-
-          {/* LEFT SIDE */}
-
-          <div className="column left" data-aos="fade-right">
-
-            <div className="text">Get in Touch</div>
-
+        <div className={styles.contactContent}>
+          
+          <div className={`${styles.column} ${styles.left}`} data-aos="fade-right">
+            <div className={styles.text}>Get in Touch</div>
             <p>
-            As a Software Engineer, I am seeking opportunities to apply my skills in React, JavaScript, HTML, CSS, and Node.js to develop efficient and scalable web applications. I am passionate about learning new technologies, solving real-world problems, and contributing to impactful software projects.
+              I am always open to discussing new projects, creative ideas, or
+              opportunities to be part of your vision. Feel free to reach out!
             </p>
-
-            <div className="icons">
-
-              {/* Name */}
-
-              <div className="row">
+            <div className={styles.icons}>
+              <div className={styles.row}>
                 <i className="fas fa-user"></i>
-
-                <div className="info">
-                  <div className="head">Name</div>
-                  <div className="sub-title">Shubham Pawar</div>
+                <div className={styles.info}>
+                  <div className={styles.head}>Name</div>
+                  <div className={styles.subTitle}>Shubham Pawar</div>
                 </div>
               </div>
-
-
-              {/* Address */}
-
-              <div className="row">
+              <div className={styles.row}>
                 <i className="fas fa-map-marker-alt"></i>
-
-                <div className="info">
-                  <div className="head">Address</div>
-                  <div className="sub-title">Maharashtra, India</div>
+                <div className={styles.info}>
+                  <div className={styles.head}>Address</div>
+                  <div className={styles.subTitle}>Pune, Maharashtra, India</div>
                 </div>
               </div>
-
-
-              {/* Email */}
-
-              <div className="row">
+              <div className={styles.row}>
                 <i className="fas fa-envelope"></i>
-
-                <div className="info">
-                  <div className="head">Email</div>
-                  <div className="sub-title">
-                    pawarshubh890@gmail.com
-                  </div>
+                <div className={styles.info}>
+                  <div className={styles.head}>Email</div>
+                  <div className={styles.subTitle}>pawarshubh890@gmail.com</div>
                 </div>
               </div>
-
             </div>
-
           </div>
 
-
-          {/* RIGHT SIDE FORM */}
-
-          <div className="column right" data-aos="fade-left">
-
-            <div className="text">Message me</div>
-
-            <form onSubmit={handleSubmit}>
-
-              {status && <div style={{ marginBottom: '15px', color: status === 'Message sent successfully!' ? 'green' : 'red', fontWeight: 'bold' }}>{status}</div>}
-
-              <div className="fields">
-
-                <div className="field name">
+          <div className={`${styles.column} ${styles.right}`} data-aos="fade-left">
+            <div className={styles.text}>Message me</div>
+            <form onSubmit={handleFormSubmit}>
+              <div className={styles.fields}>
+                <div className={`${styles.field} ${styles.name}`}>
                   <input
                     type="text"
                     name="name"
                     placeholder="Name"
                     value={formData.name}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     required
                   />
                 </div>
-
-                <div className="field email">
+                <div className={`${styles.field} ${styles.email}`}>
                   <input
                     type="email"
                     name="email"
                     placeholder="Email"
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     required
                   />
                 </div>
-
               </div>
-
-
-              <div className="field subject">
+              <div className={styles.field}>
                 <input
                   type="text"
                   name="subject"
                   placeholder="Subject"
                   value={formData.subject}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   required
                 />
               </div>
-
-
-              <div className="field textarea">
+              <div className={`${styles.field} ${styles.textarea}`}>
                 <textarea
                   name="message"
+                  cols="30"
+                  rows="10"
                   placeholder="Message.."
                   value={formData.message}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   required
                 ></textarea>
               </div>
-
-
-              <div className="button-area">
-                <button
-                  type="submit"
-                  className="submit-btn"
-                  disabled={status === "Sending..."}
-                >
-                  {status === "Sending..." ? "Sending..." : "Send Message"}
+              <div className={styles.buttonArea}>
+                <button type="submit" disabled={status.submitting}>
+                  {status.submitting ? "Sending..." : "Send message"}
                 </button>
               </div>
-
+              {status.info.msg && (
+                <p style={{ 
+                  marginTop: "10px", 
+                  color: status.info.error ? "red" : "green",
+                  fontSize: "14px",
+                  fontWeight: "500"
+                }}>
+                  {status.info.msg}
+                </p>
+              )}
             </form>
-
           </div>
 
         </div>
-
       </div>
-
     </section>
   );
 }

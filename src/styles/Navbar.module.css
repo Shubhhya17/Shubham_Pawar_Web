@@ -1,0 +1,94 @@
+.navbar {
+  position: fixed;
+  width: 100%;
+  padding: 20px 0;
+  transition: all 0.4s ease;
+  z-index: 1000;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.navbar.sticky {
+  background: #dc143c !important;
+  padding: 15px 0;
+}
+
+.logo a {
+  font-size: 28px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo a span {
+  color: #dc143c;
+  transition: 0.3s;
+}
+
+.sticky .logo a span {
+  color: #fff !important;
+}
+
+.menu {
+  list-style: none;
+}
+
+.menu li {
+  display: inline-block;
+  margin-left: 25px;
+}
+
+.menu li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.menu li a:hover {
+  color: #dc143c;
+}
+
+.sticky .menu li a:hover {
+  color: #111;
+}
+
+.menuBtn {
+  color: #fff;
+  font-size: 23px;
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 947px) {
+  .menuBtn {
+    display: block;
+    z-index: 999;
+  }
+  
+  .menu {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    left: -100%;
+    top: 0;
+    background: #111;
+    text-align: center;
+    padding-top: 80px;
+    transition: all 0.3s ease;
+  }
+  
+  .menu.active {
+    left: 0;
+  }
+  
+  .menu li {
+    display: block;
+  }
+  
+  .menu li a {
+    display: inline-block;
+    margin: 20px 0;
+    font-size: 25px;
+  }
+}

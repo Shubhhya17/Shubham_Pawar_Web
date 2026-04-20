@@ -1,5 +1,7 @@
 "use client";
 
+import styles from "../styles/Skills.module.css";
+
 export default function Skills() {
   return (
     <section className="skills" id="skills">
@@ -7,12 +9,12 @@ export default function Skills() {
 
         <h2 className="title" data-aos="fade-up">My skills</h2>
 
-        <div className="skills-content">
+        <div className={styles.skillsContent}>
 
           {/* Left Side Text */}
 
-          <div className="column left" data-aos="fade-right">
-            <div className="text">
+          <div className={`${styles.column} ${styles.left}`} data-aos="fade-right">
+            <div className={styles.text}>
               My creative skills & experiences.
             </div>
 
@@ -43,78 +45,78 @@ export default function Skills() {
 
           {/* Right Side Skill Bars */}
 
-          <div className="column right" data-aos="fade-left">
+          <div className={`${styles.column} ${styles.right}`} data-aos="fade-left">
 
             {/* React */}
-            <div className="bars">
-              <div className="info">
+            <div className={styles.bars}>
+              <div className={styles.info}>
                 <span>React</span>
                 <span>80%</span>
               </div>
-              <div className="line React"></div>
+              <div className={`${styles.line} ${styles.React}`}></div>
             </div>
 
             {/* Next.js */}
-            <div className="bars">
-              <div className="info">
+            <div className={styles.bars}>
+              <div className={styles.info}>
                 <span>Next.js</span>
                 <span>80%</span>
               </div>
-              <div className="line Nextjs"></div>
+              <div className={`${styles.line} ${styles.Nextjs}`}></div>
             </div>
 
             {/* JavaScript */}
-            <div className="bars">
-              <div className="info">
+            <div className={styles.bars}>
+              <div className={styles.info}>
                 <span>JavaScript</span>
                 <span>70%</span>
               </div>
-              <div className="line JavaScript"></div>
+              <div className={`${styles.line} ${styles.JavaScript}`}></div>
             </div>
 
             {/* CSS */}
-            <div className="bars">
-              <div className="info">
+            <div className={styles.bars}>
+              <div className={styles.info}>
                 <span>CSS</span>
                 <span>80%</span>
               </div>
-              <div className="line CSS"></div>
+              <div className={`${styles.line} ${styles.CSS}`}></div>
             </div>
 
             {/* Node */}
-            <div className="bars">
-              <div className="info">
+            <div className={styles.bars}>
+              <div className={styles.info}>
                 <span>Node</span>
                 <span>60%</span>
               </div>
-              <div className="line Nodejs"></div>
+              <div className={`${styles.line} ${styles.Nodejs}`}></div>
             </div>
 
             {/* MongoDB */}
-            <div className="bars">
-              <div className="info">
+            <div className={styles.bars}>
+              <div className={styles.info}>
                 <span>Mongo</span>
                 <span>70%</span>
               </div>
-              <div className="line MongoDB"></div>
+              <div className={`${styles.line} ${styles.MongoDB}`}></div>
             </div>
 
             {/* GitHub */}
-            <div className="bars">
-              <div className="info">
+            <div className={styles.bars}>
+              <div className={styles.info}>
                 <span>Git & GitHub</span>
                 <span>80%</span>
               </div>
-              <div className="line GitHub"></div>
+              <div className={`${styles.line} ${styles.GitHub}`}></div>
             </div>
 
             {/* MySQL */}
-            <div className="bars">
-              <div className="info">
+            <div className={styles.bars}>
+              <div className={styles.info}>
                 <span>MySQL</span>
                 <span>70%</span>
               </div>
-              <div className="line MySQL"></div>
+              <div className={`${styles.line} ${styles.MySQL}`}></div>
             </div>
 
           </div>
@@ -124,4 +126,4 @@ export default function Skills() {
       </div>
     </section>
   );
-}
+}

@@ -1,0 +1,93 @@
+.carousel {
+  margin-top: 20px;
+}
+
+.card {
+  background: #222;
+  border-radius: 6px;
+  padding: 25px 35px;
+  text-align: center;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.card:hover {
+  background: crimson;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.card:hover .box {
+  transform: scale(1.05);
+}
+
+.card img {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid crimson;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.card:hover img {
+  border-color: #fff;
+}
+
+.text {
+  font-size: 25px;
+  font-weight: 500;
+  margin: 10px 0 7px 0;
+}
+
+/* Specific to Projects */
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: crimson;
+  color: #fff;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.description {
+  color: #e0e0e0;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 6px 0;
+}
+
+.tech {
+  color: crimson;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.viewLink {
+  display: inline-block;
+  margin-top: 10px;
+  color: #fff;
+  font-size: 12px;
+  border: 1px solid crimson;
+  border-radius: 4px;
+  padding: 4px 10px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.card:hover .viewLink {
+  border-color: #fff;
+}

@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import styles from "../styles/Certificates.module.css";
 
 // 1. Certificate Data Object
 const certificatesData = [
@@ -49,7 +50,7 @@ export default function Certificates() {
       <div className="max-width">
         <h2 className="title">Certificates</h2>
 
-        <div className="carousel">
+        <div className={styles.carousel}>
           <Swiper
             modules={[Autoplay]}
             spaceBetween={30}
@@ -68,18 +69,18 @@ export default function Certificates() {
             {/* 2. Map through the data object */}
             {certificatesData.map((cert) => (
               <SwiperSlide key={cert.id}>
-                <div className="card">
-                  <div className="box">
+                <div className={styles.card}>
+                  <div className={styles.box}>
                     <img src={cert.image} alt={cert.title} />
                     <a href={cert.link} target="_blank" rel="noreferrer">
                       
                       {/* Name in White */}
-                      <div className="text" style={{ color: "white" }}>
+                      <div className={styles.text}>
                         {cert.title}
                       </div>
 
                       {/* Description in White */}
-                      <p style={{ color: "white" }}>
+                      <p className={styles.description}>
                         {cert.description}
                       </p>
                       
@@ -93,4 +94,4 @@ export default function Certificates() {
       </div>
     </section>
   );
-}
+}

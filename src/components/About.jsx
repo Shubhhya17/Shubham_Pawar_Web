@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Typed from "typed.js";
+import styles from "../styles/About.module.css";
 
 export default function About() {
   const el = useRef(null);
@@ -31,15 +32,15 @@ export default function About() {
       <div className="max-width">
         <h2 className="title" data-aos="fade-up">About me</h2>
 
-        <div className="about-content">
+        <div className={styles.aboutContent}>
           {/* Left side image */}
-          <div className="column left" data-aos="fade-right">
+          <div className={`${styles.column} ${styles.left}`} data-aos="fade-right">
             <img src="/images/Pass2.jpg" alt="profile-photo" />
           </div>
 
           {/* Right side content */}
-          <div className="column right" data-aos="fade-left">
-            <div className="text">
+          <div className={`${styles.column} ${styles.right}`} data-aos="fade-left">
+            <div className={styles.text}>
               I have Knowledge in <span><span ref={el}></span></span>
             </div>
 
@@ -75,4 +76,4 @@ export default function About() {
       </div>
     </section>
   );
-}
+}
