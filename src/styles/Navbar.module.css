@@ -4,14 +4,26 @@
   padding: 20px 0;
   transition: all 0.4s ease;
   z-index: 1000;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.navbar .maxWidth {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1300px;
+  padding: 0 80px;
+  margin: auto;
 }
 
 .navbar.sticky {
-  background: rgba(10, 10, 10, 0.75) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 12px 0;
+  background: rgba(10, 10, 10, 0.85) !important;
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  padding: 10px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -65,6 +77,7 @@
   font-size: 23px;
   cursor: pointer;
   display: none;
+  margin-left: auto;
 }
 
 @media (max-width: 947px) {

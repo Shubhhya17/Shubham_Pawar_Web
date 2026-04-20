@@ -28,7 +28,7 @@ export default function Navbar() {
   return (
     <>
       <nav className={navClass}>
-        <div className="max-width">
+        <div className={styles.maxWidth}>
           <div className={styles.logo}>
             <a href="#" suppressHydrationWarning>Portfo<span>lio.</span></a>
           </div>
