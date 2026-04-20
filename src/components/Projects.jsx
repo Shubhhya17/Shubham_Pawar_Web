@@ -1,8 +1,5 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import "swiper/css";
 import styles from "../styles/Projects.module.css";
 
 // 1. Define the project data in an array of objects
@@ -71,67 +68,69 @@ const projectsData = [
     badge: "Published",
   },
 ];
-
 export default function Projects({ theme }) {
   return (
     <section className={`teams ${theme}`} id="projects">
       <div className="max-width">
-        <h2 className="title" data-aos="fade-up">Projects</h2>
+        <h2 className="title" data-aos="fade-up">Projects Spotlight</h2>
 
-        <div className={styles.carousel} data-aos="zoom-in">
-          <Swiper
-            modules={[Autoplay]}
-            spaceBetween={30}
-            slidesPerView={3}
-            loop={true}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            breakpoints={{
-              0: { slidesPerView: 1 },
-              600: { slidesPerView: 2 },
-              1000: { slidesPerView: 3 },
-            }}
-          >
-            {/* 2. Map through the project data */}
-            {projectsData.map((project) => (
-              <SwiperSlide key={project.id}>
-                <div 
-                  className={styles.card}
-                  onMouseMove={(e) => {
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
-                    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
-                  }}
-                >
-                  <div className={styles.box}>
-                    <img src={project.image} alt={project.title} />
+        <div className={styles.bentoGrid} data-aos="fade-up">
+          {/* 2. Map through the project data */}
+          {projectsData.map((project, index) => (
+            <div 
+              key={project.id}
+              className={styles.card}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+                e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+              }}
+            >
+              <div className={styles.glare}></div>
+              <div className={styles.box}>
+                {/* Browser Mockup Header */}
+                <div className={styles.browserHeader}>
+                  <div className={styles.dots}>
+                    <span className={styles.dot}></span>
+                    <span className={styles.dot}></span>
+                    <span className={styles.dot}></span>
+                  </div>
+                  <div className={styles.browserTitle}>{project.title}</div>
+                </div>
 
-                    {/* Badge */}
-                    {project.badge && (
-                      <span className={styles.badge}>
-                        {project.badge}
-                      </span>
-                    )}
+                <div className={styles.imageWrapper}>
+                  <img src={project.image} alt={project.title} />
+                  <div className={styles.imageOverlay}></div>
+                </div>
 
-                    {/* Project Name */}
-                    <div className={styles.text} style={{ color: "white", fontWeight: 700 }}>
-                      {project.title}
-                    </div>
+                {/* Badge */}
+                {project.badge && (
+                  <span className={styles.badge}>
+                    {project.badge}
+                  </span>
+                )}
 
-                    {/* Description */}
-                    <p className={styles.description}>
-                      {project.description}
-                    </p>
+                <div className={styles.content}>
+                  {/* Project Name */}
+                  <h3 className={styles.projectTitle}>
+                    {project.title}
+                  </h3>
 
+                  {/* Description */}
+                  <p className={styles.description}>
+                    {project.description}
+                  </p>
+
+                  <div className={styles.footer}>
                     {/* Tech stack */}
                     {project.tech && (
-                      <p className={styles.tech}>
-                        🛠 {project.tech}
-                      </p>
+                      <div className={styles.techTags}>
+                        {project.tech.split(' · ').map((t, i) => (
+                          <span key={i} className={styles.techTag}>{t}</span>
+                        ))}
+                      </div>
                     )}
 
                     {/* Link */}
@@ -142,14 +141,14 @@ export default function Projects({ theme }) {
                         rel="noreferrer"
                         className={styles.viewLink}
                       >
-                        View Project →
+                        Launch <i className="fas fa-external-link-alt"></i>
                       </a>
                     )}
                   </div>
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

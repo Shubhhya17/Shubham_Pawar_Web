@@ -48,9 +48,9 @@ export default function Certificates({ theme }) {
   return (
     <section className={`teams ${theme}`} id="certificates">
       <div className="max-width">
-        <h2 className="title">Certificates</h2>
+        <h2 className="title" data-aos="fade-up">Certificates & Achievements</h2>
 
-        <div className={styles.carousel}>
+        <div className={styles.carousel} data-aos="fade-up">
           <Swiper
             modules={[Autoplay]}
             spaceBetween={30}
@@ -69,22 +69,35 @@ export default function Certificates({ theme }) {
             {/* 2. Map through the data object */}
             {certificatesData.map((cert) => (
               <SwiperSlide key={cert.id}>
-                <div className={styles.card}>
+                <div 
+                  className={styles.card}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+                    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+                  }}
+                >
+                  <div className={styles.glare}></div>
                   <div className={styles.box}>
-                    <img src={cert.image} alt={cert.title} />
-                    <a href={cert.link} target="_blank" rel="noreferrer">
-                      
-                      {/* Name in White */}
-                      <div className={styles.text}>
-                        {cert.title}
-                      </div>
-
-                      {/* Description in White */}
-                      <p className={styles.description}>
-                        {cert.description}
-                      </p>
-                      
-                    </a>
+                    <div className={styles.imageContainer}>
+                      <img src={cert.image} alt={cert.title} />
+                      <div className={styles.overlay}></div>
+                    </div>
+                    <div className={styles.content}>
+                      <a href={cert.link} target="_blank" rel="noreferrer" className={styles.certLink}>
+                        <div className={styles.text}>
+                          {cert.title}
+                        </div>
+                        <p className={styles.description}>
+                          {cert.description}
+                        </p>
+                        <div className={styles.viewBadge}>
+                          Verify Certificate <i className="fas fa-external-link-alt"></i>
+                        </div>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </SwiperSlide>

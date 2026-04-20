@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import styles from "../styles/Social.module.css";
 
 // 1. Social Media Data Object
 const socialData = [
@@ -47,9 +48,9 @@ export default function SocialMedia({ theme }) {
   return (
     <section className={`teams ${theme}`} id="social-media">
       <div className="max-width">
-        <h2 className="title">Social Media</h2>
+        <h2 className="title" data-aos="fade-up">Social Media</h2>
 
-        <div className="carousel">
+        <div className={styles.carousel} data-aos="fade-up">
           <Swiper
             modules={[Autoplay]}
             spaceBetween={30}
@@ -68,18 +69,28 @@ export default function SocialMedia({ theme }) {
             {/* 2. Map through the data object */}
             {socialData.map((social) => (
               <SwiperSlide key={social.id}>
-                <div className="card">
-                  <div className="box">
+                <div 
+                  className={styles.card}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+                    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+                  }}
+                >
+                  <div className={styles.glare}></div>
+                  <div className={styles.box}>
                     <img src={social.image} alt={social.name} />
                     <a href={social.link} target="_blank" rel="noreferrer">
                       
                       {/* Name in White */}
-                      <div className="text" style={{ color: "white" }}>
+                      <div className={styles.text}>
                         {social.name}
                       </div>
 
                       {/* Description in White */}
-                      <p style={{ color: "white" }}>
+                      <p className={styles.description}>
                         {social.description}
                       </p>
                       

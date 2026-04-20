@@ -27,7 +27,9 @@ export const connectDB = async () => {
     mongoose.set("bufferCommands", false); // ⭐ important
 
     const db = await mongoose.connect(MONGO_URL, {
-      dbName: "portfolio", // ⭐ apna DB name daal (IMPORTANT)
+      dbName: "portfolio",
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
     });
 
     isConnected = db.connections[0].readyState;

@@ -80,8 +80,17 @@ export default function Experience({ theme }) {
                 className={`${styles.experienceCard} ${exp.current ? styles.current : ''}`}
                 data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
               >
-                <div className={styles.cardDot}></div>
-                <div className={styles.cardInner}>
+                <div 
+                  className={styles.cardInner}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+                    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+                  }}
+                >
+                  <div className={styles.glare}></div>
                   <div className={styles.cardHeader}>
                     <div className={styles.roleContainer}>
                       <h3>{exp.role}</h3>
