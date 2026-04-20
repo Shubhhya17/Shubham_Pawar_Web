@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/Contact.module.css";
+import confetti from "canvas-confetti";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -17,6 +18,16 @@ export default function Contact() {
     submitting: false,
     info: { error: false, msg: null },
   });
+
+  // Auto-hide success message after 5 seconds
+  useEffect(() => {
+    if (status.info.msg && !status.info.error) {
+      const timer = setTimeout(() => {
+        setStatus((prev) => ({ ...prev, info: { error: false, msg: null } }));
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [status.info.msg, status.info.error]);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -41,6 +52,25 @@ export default function Contact() {
       const result = await res.json();
 
       if (res.ok) {
+        // ✨ BIG BLAST ANIMATION (Fireworks Effect)
+        const duration = 5 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 45, spread: 360, ticks: 100, zIndex: 999 };
+
+        const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+        const interval = setInterval(function() {
+          const timeLeft = animationEnd - Date.now();
+
+          if (timeLeft <= 0) {
+            return clearInterval(interval);
+          }
+
+          const particleCount = 70 * (timeLeft / duration);
+          confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+          confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+        }, 300);
+
         setStatus({
           submitted: true,
           submitting: false,

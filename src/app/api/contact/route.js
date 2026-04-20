@@ -162,24 +162,21 @@ export async function POST(req) {
       }
     })();
 
-    // ── 4. Send Emails in Parallel ──────────────────────────────────────────────
-    try {
-      console.log("🔵 Attempting to send internal notification...");
-      await transporter.sendMail(notifyOptions);
+    // ── 4. Send Emails in Background ──────────────────────────────────────────────
+    // We do not await these to ensure the user gets an instant response.
+    transporter.sendMail(notifyOptions).then(() => {
       console.log("✅ Internal notification sent.");
+    }).catch(err => {
+      console.error("❌ SMTP Notify error:", err.message);
+    });
 
-      console.log("🔵 Attempting to send thank-you email...");
-      await transporter.sendMail(thankYouOptions);
+    transporter.sendMail(thankYouOptions).then(() => {
       console.log("✅ Thank-you email sent.");
+    }).catch(err => {
+      console.error("❌ SMTP Thank-you error:", err.message);
+    });
 
-      return NextResponse.json({ success: true, message: "Message sent successfully!" }, { status: 201 });
-    } catch (mailErr) {
-      console.error("❌ SMTP Delivery Failed:", mailErr.message);
-      return NextResponse.json(
-        { success: true, warning: "Saved to DB, but email delivery failed. Check SMTP credentials." },
-        { status: 201 }
-      );
-    }
+    return NextResponse.json({ success: true, message: "Message sent successfully!" }, { status: 201 });
 
   } catch (error) {
     console.error("❌ Contact API Crash:", error);
