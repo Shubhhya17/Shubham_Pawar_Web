@@ -35,7 +35,7 @@ export default function About() {
         <div className={styles.aboutContent}>
           {/* Left side image */}
           <div className={`${styles.column} ${styles.left}`} data-aos="fade-right">
-            <img src="/images/Pass2.jpg" alt="profile-photo" />
+            <img src="/images/Pass2.jpg" alt="Shubham Pawar - Full Stack Developer Pune" />
           </div>
 
           {/* Right side content */}

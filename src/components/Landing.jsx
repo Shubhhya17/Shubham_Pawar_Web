@@ -82,9 +82,9 @@ export default function Landing() {
             <div className={styles.text1} data-aos="fade-down" data-aos-delay="100">
               Hello, my name is
             </div>
-            <div className={styles.text2} data-aos="fade-up" data-aos-delay="200">
+            <h1 className={styles.text2} data-aos="fade-up" data-aos-delay="200">
               Shubham Pawar
-            </div>
+            </h1>
             <div className={styles.text3} data-aos="fade-up" data-aos-delay="300">
               And I'm a <span ref={typingRef}></span>
             </div>
