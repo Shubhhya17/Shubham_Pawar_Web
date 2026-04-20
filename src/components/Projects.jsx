@@ -103,14 +103,13 @@ export default function Projects({ theme }) {
                 <div className={styles.imageWrapper}>
                   <img src={project.image} alt={project.title} />
                   <div className={styles.imageOverlay}></div>
+                  {/* Badge moved inside for stable alignment */}
+                  {project.badge && (
+                    <span className={styles.badge}>
+                      {project.badge}
+                    </span>
+                  )}
                 </div>
-
-                {/* Badge */}
-                {project.badge && (
-                  <span className={styles.badge}>
-                    {project.badge}
-                  </span>
-                )}
 
                 <div className={styles.content}>
                   {/* Project Name */}

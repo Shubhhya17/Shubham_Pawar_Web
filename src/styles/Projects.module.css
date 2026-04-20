@@ -193,14 +193,20 @@
 
 .badge {
   position: absolute;
-  top: 55px;
-  right: 15px;
-  background: crimson;
+  top: 12px;
+  right: 12px;
+  background: rgba(220, 20, 60, 0.9);
+  backdrop-filter: blur(4px);
   color: white;
-  padding: 4px 10px;
-  border-radius: 20px;
+  padding: 4px 12px;
+  border-radius: 10px;
   font-size: 10px;
   font-weight: 700;
+  z-index: 20;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* --- Resilient Rhythmic Pattern (5-item cycle) --- */

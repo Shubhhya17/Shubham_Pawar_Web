@@ -3,109 +3,212 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 60px;
+  gap: 80px;
+  margin-top: 50px;
 }
 
+/* 3D Portrait Frame */
 .left {
   width: 40%;
+  perspective: 1000px;
+}
+
+.portraitWrapper {
   position: relative;
-}
-
-.left img {
-  height: 480px;
-  width: 100%;
-  object-fit: cover;
+  background: rgba(15, 15, 15, 0.4);
+  backdrop-filter: blur(20px);
   border-radius: 40px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  background: rgba(0, 0, 0, 0.02);
   padding: 12px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
-  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.2s ease-out, box-shadow 0.5s ease;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 }
 
-:global(.section-dark) .left img {
-  border-color: rgba(255, 255, 255, 0.05);
-  background: rgba(255, 255, 255, 0.02);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+.left:hover .portraitWrapper {
+  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5), 0 0 40px rgba(220, 20, 60, 0.1);
+  border-color: rgba(220, 20, 60, 0.3);
 }
 
-.left::before {
-  content: "";
+.glare {
   position: absolute;
-  top: -15px;
-  left: -15px;
-  width: 60px;
-  height: 60px;
-  border-left: 4px solid var(--primary);
-  border-top: 4px solid var(--primary);
-  border-radius: 20px 0 0 0;
-  z-index: 1;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(220, 20, 60, 0.15),
+    transparent 45%
+  );
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  border-radius: 40px;
 }
 
-.left:hover img {
-  transform: translateY(-10px) scale(1.02);
-  border-color: rgba(220, 20, 60, 0.4);
-  box-shadow: 0 40px 80px rgba(220, 20, 60, 0.15);
+.left:hover .glare {
+  opacity: 1;
 }
 
+.portraitImg {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  border-radius: 30px;
+  display: block;
+  transform: translateZ(20px); /* Slight lift */
+}
+
+.frameDecoration {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 50px;
+  height: 50px;
+  border-left: 3px solid crimson;
+  border-top: 3px solid crimson;
+  border-radius: 15px 0 0 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Right Content */
 .right {
   width: 50%;
 }
 
-.right .text {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 20px;
+.text {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 25px;
   font-family: var(--font-heading);
-  color: #111;
-  letter-spacing: -1px;
-}
-
-:global(.section-dark) .right .text {
+  letter-spacing: -1.5px;
   color: #fff;
 }
 
-.right .text span {
-  color: var(--primary);
-  text-shadow: 0 5px 15px rgba(220, 20, 60, 0.2);
+:global(.section-light) .text {
+  color: #111;
 }
 
-:global(.section-dark) .right .text span {
+.typedText {
+  color: crimson;
   text-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
 }
 
-.right p {
-  text-align: justify;
+.bioContainer {
+  margin-bottom: 40px;
+}
+
+.bioText {
   line-height: 1.8;
-  color: #333;
-  font-size: 16px;
-}
-
-:global(.section-dark) .right p {
   color: #bbb;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
-.right a {
-  display: inline-block;
-  background: var(--primary);
+:global(.section-light) .bioText {
+  color: #444;
+}
+
+.highlight {
   color: #fff;
+  font-weight: 600;
+}
+
+:global(.section-light) .highlight {
+  color: #111;
+}
+
+/* Metrics Bento */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 45px;
+}
+
+.metricCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.4s ease;
+}
+
+:global(.section-light) .metricCard {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.metricCard:hover {
+  background: rgba(220, 20, 60, 0.05);
+  border-color: rgba(220, 20, 60, 0.3);
+  transform: translateY(-5px);
+}
+
+.metricCard i {
+  font-size: 18px;
+  color: crimson;
+}
+
+.metricInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.mValue {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+}
+
+:global(.section-light) .mValue {
+  color: #111;
+}
+
+.mLabel {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+:global(.section-light) .mLabel {
+  color: #888;
+}
+
+/* CTA Button */
+.cvButton {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: crimson;
+  color: #fff;
+  padding: 18px 35px;
+  border-radius: 16px;
   font-size: 16px;
   font-weight: 700;
-  padding: 15px 40px;
-  margin-top: 35px;
-  border-radius: 14px;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 10px 20px rgba(220, 20, 60, 0.2);
+  text-decoration: none;
+  width: fit-content;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 20px rgba(220, 20, 60, 0.3);
 }
 
-.right a:hover {
+.cvButton:hover {
   transform: translateY(-5px);
+  background: #ff1a4d;
   box-shadow: 0 15px 30px rgba(220, 20, 60, 0.4);
-  background: #ff2d55;
 }
 
-@media (max-width: 1104px) {
-  .left img {
+@media (max-width: 1100px) {
+  .aboutContent {
+    gap: 40px;
+  }
+  .portraitImg {
     height: 400px;
   }
 }
@@ -113,26 +216,21 @@
 @media (max-width: 947px) {
   .aboutContent {
     flex-direction: column;
-    gap: 40px;
+    text-align: center;
   }
   .left {
     width: 320px;
     margin: 0 auto;
   }
-  .left img {
-    height: 320px;
-  }
   .right {
     width: 100%;
-    text-align: center;
   }
-  .right p {
-    text-align: center;
+  .cvButton {
+    margin: 0 auto;
   }
-}
-
-@media (max-width: 500px) {
-  .right .text {
-    font-size: 24px;
+  .metricsGrid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto 40px auto;
   }
 }

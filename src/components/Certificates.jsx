@@ -75,8 +75,21 @@ export default function Certificates({ theme }) {
                     const rect = e.currentTarget.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
+                    
+                    // Calculate rotation angles
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg
+                    const rotateY = ((x - centerX) / centerX) * 10;   // Max 10 deg
+
                     e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
                     e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+                    e.currentTarget.style.setProperty("--rotate-x", `${rotateX}deg`);
+                    e.currentTarget.style.setProperty("--rotate-y", `${rotateY}deg`);
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.setProperty("--rotate-x", `0deg`);
+                    e.currentTarget.style.setProperty("--rotate-y", `0deg`);
                   }}
                 >
                   <div className={styles.glare}></div>

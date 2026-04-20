@@ -27,53 +27,95 @@ export default function About({ theme }) {
     };
   }, [mounted]);
 
+  const metricsData = [
+    { label: "Experience", value: "2+ Years", icon: "fas fa-code-branch" },
+    { label: "Projects", value: "15+ Shipped", icon: "fas fa-rocket" },
+    { label: "Availability", value: "Open for Hire", icon: "fas fa-calendar-check" },
+  ];
+
   return (
     <section className={`about ${theme}`} id="about">
       <div className="max-width">
-        <h2 className="title" data-aos="fade-up">About me</h2>
+        <h2 className="title" data-aos="fade-up">About Me</h2>
 
         <div className={styles.aboutContent}>
-          {/* Left side image */}
-          <div className={`${styles.column} ${styles.left}`} data-aos="fade-right">
-            <img src="/images/Pass2.jpg" alt="Shubham Pawar - Full Stack Developer Pune" />
+          {/* Left: 3D Portrait Frame */}
+          <div 
+            className={styles.left} 
+            data-aos="fade-right"
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+              const centerX = rect.width / 2;
+              const centerY = rect.height / 2;
+              const rotateX = ((y - centerY) / centerY) * -8;
+              const rotateY = ((x - centerX) / centerX) * 8;
+
+              e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+              e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+              e.currentTarget.style.setProperty("--rotate-x", `${rotateX}deg`);
+              e.currentTarget.style.setProperty("--rotate-y", `${rotateY}deg`);
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.setProperty("--rotate-x", `0deg`);
+              e.currentTarget.style.setProperty("--rotate-y", `0deg`);
+            }}
+          >
+            <div className={styles.portraitWrapper}>
+              <div className={styles.glare}></div>
+              <img src="/images/Pass2.jpg" alt="Shubham Pawar - Full Stack Developer" className={styles.portraitImg} />
+              <div className={styles.frameDecoration}></div>
+            </div>
           </div>
 
           {/* Right side content */}
           <div className={`${styles.column} ${styles.right}`} data-aos="fade-left">
             <div className={styles.text}>
-              I have Knowledge in <span><span ref={el}></span></span>
+              Engineering Specialist in <span className={styles.typedText}><span ref={el}></span></span>
             </div>
 
-            <p>
-              I am a passionate software developer who enjoys building modern,
-              responsive, and user-friendly web applications. I have hands-on
-              experience with HTML, CSS, JavaScript, React, Next.js, and
-              Git/GitHub, and I focus on writing clean, maintainable, and
-              efficient code.
-              <br />
-              <br />
-              I have worked on real-world projects where I prioritized intuitive
-              UI design, seamless user experience, and fully responsive layouts
-              across devices. I enjoy solving problems, learning new
-              technologies, and continuously improving my development skills.
-              <br />
-              Currently, I am expanding my expertise by learning the MERN stack
-              to strengthen my full-stack development capabilities and gain
-              deeper, industry-level experience. I am always eager to take on new
-              challenges and contribute to impactful projects.
-            </p>
+            <div className={styles.bioContainer}>
+              <p className={styles.bioText}>
+                I am a passionate <span className={styles.highlight}>Software Developer</span> who thrives at the intersection of robust engineering and 
+                intuitive user experience. With a focus on <span className={styles.highlight}>modern architecture</span> and 
+                performance optimization, I build applications that are not just functional, but cinematic.
+              </p>
+              
+              <p className={styles.bioText}>
+                My development philosophy centers on writing <span className={styles.highlight}>clean, maintainable code</span> while 
+                continuously evolving through the MERN stack ecosystem to solve complex, high-scale challenges.
+              </p>
+            </div>
 
-            {/* CV download */}
-            <a
-              href="https://www.linkedin.com/in/shubham-pawar1703/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Download CV
-            </a>
+            {/* Life Metrics Bento */}
+            <div className={styles.metricsGrid} data-aos="fade-up">
+              {metricsData.map((metric, index) => (
+                <div key={index} className={styles.metricCard}>
+                  <i className={metric.icon}></i>
+                  <div className={styles.metricInfo}>
+                    <span className={styles.mValue}>{metric.value}</span>
+                    <span className={styles.mLabel}>{metric.label}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Premium CTA */}
+            <div className={styles.ctaArea} data-aos="fade-up">
+              <a
+                href="https://www.linkedin.com/in/shubham-pawar1703/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.cvButton}
+              >
+                <span>Download CV Portfolio</span>
+                <i className="fas fa-download"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
-}
+}
