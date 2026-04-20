@@ -16,13 +16,6 @@ const IconBot = () => (
   </svg>
 );
 
-const IconUser = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </svg>
-);
-
 const IconSend = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <line x1="22" y1="2" x2="11" y2="13" />
@@ -34,6 +27,13 @@ const IconClose = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <line x1="18" y1="6" x2="6" y2="18" />
     <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
+
+const IconMic = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
   </svg>
 );
 
@@ -67,7 +67,6 @@ const KB = [
   },
 ];
 
-// Human-like conversational replies when AI is busy or question is random
 const HUMAN_FALLBACKS = [
   "🤔 I'll have to check with Shubham on that one! While I'm at it, would you like to see his **projects** or **schedule a quick sync**?",
   "😄 I'm specialized in Shubham's professional life. Want to hear about his work at **Ideas To Impacts** or maybe **book a meeting** with him?",
@@ -83,7 +82,6 @@ function getLocalReply(userInput) {
   return HUMAN_FALLBACKS[Math.floor(Math.random() * HUMAN_FALLBACKS.length)];
 }
 
-// ── Render markdown-style bold text ──────────────────────────────────────────
 function renderText(text) {
   if (!text) return "";
   const parts = text.split(/\*\*(.*?)\*\*/g);
@@ -92,7 +90,6 @@ function renderText(text) {
   );
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
 export default function ChatBot() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -101,21 +98,53 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [showBooking, setShowBooking] = useState(false);
+  const [listening, setListening] = useState(false);
   const bottomRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   // Booking Form State
-  const [bookingData, setBookingData] = useState({
-    name: "",
-    email: "",
-    date: "",
-    time: "",
-    reason: "",
-  });
+  const [bookingData, setBookingData] = useState({ name: "", email: "", date: "", time: "", reason: "" });
   const [bookingStatus, setBookingStatus] = useState("idle");
 
   useEffect(() => {
     if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, open, showBooking]);
+
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.lang = "en-US";
+      
+      recognitionRef.current.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setInput(transcript);
+        setListening(false);
+        // Automatically send after voice capture
+        setTimeout(() => send(transcript), 500);
+      };
+      recognitionRef.current.onend = () => setListening(false);
+      recognitionRef.current.onerror = () => setListening(false);
+    }
+  }, []);
+
+  const toggleListening = () => {
+    if (listening) {
+      recognitionRef.current?.stop();
+    } else {
+      setListening(true);
+      recognitionRef.current?.start();
+    }
+  };
+
+  const speak = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text.replace(/\*\*/g, ''));
+    const voices = window.speechSynthesis.getVoices();
+    const femaleVoice = voices.find(v => v.name.includes("Female") || v.name.includes("Google US English") || v.name.includes("Microsoft Zira"));
+    if (femaleVoice) utterance.voice = femaleVoice;
+    window.speechSynthesis.speak(utterance);
+  };
 
   const send = async (textOverride) => {
     const textToSend = textOverride || input;
@@ -129,7 +158,6 @@ export default function ChatBot() {
     
     setTyping(true);
 
-    // Intent detection for booking
     const bookingIntents = ["meeting", "schedule", "appointment", "book", "pencil", "when free", "when shubham free"];
     const isBookingIntent = bookingIntents.some(i => trimmed.toLowerCase().includes(i));
 
@@ -143,6 +171,7 @@ export default function ChatBot() {
       const data = await res.json();
       if (res.ok && data.reply) {
         setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
+        speak(data.reply); // Voice response
         if (isBookingIntent || data.reply.toLowerCase().includes("schedule") || data.reply.toLowerCase().includes("pencil")) {
           setTimeout(() => setShowBooking(true), 1200);
         }
@@ -152,6 +181,7 @@ export default function ChatBot() {
     } catch (err) {
       const fallback = getLocalReply(trimmed);
       setMessages((prev) => [...prev, { role: "bot", text: fallback }]);
+      speak(fallback); // Voice response
       if (isBookingIntent) {
         setTimeout(() => setShowBooking(true), 1200);
       }
@@ -171,26 +201,9 @@ export default function ChatBot() {
       });
       if (res.ok) {
         setBookingStatus("success");
-        
-        // ✨ SUPER BIG BLAST (Fireworks inside chat)
         const count = 150;
-        const defaults = {
-          origin: { y: 0.7 },
-          zIndex: 9999,
-          colors: ['#dc143c', '#ffffff', '#ff0000']
-        };
-
-        function fire(particleRatio, opts) {
-          confetti({
-            ...defaults,
-            ...opts,
-            particleCount: Math.floor(count * particleRatio)
-          });
-        }
-
-        fire(0.25, { spread: 26, startVelocity: 45 });
-        fire(0.2, { spread: 60 });
-        fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+        const defaults = { origin: { y: 0.7 }, zIndex: 9999, colors: ['#dc143c', '#ffffff', '#ff0000'] };
+        confetti({ ...defaults, particleCount: count });
         
         setTimeout(() => {
           setShowBooking(false);
@@ -208,11 +221,7 @@ export default function ChatBot() {
 
   return (
     <>
-      <button
-        className={`${styles.chatbotTrigger} ${open ? styles.active : ""}`}
-        onClick={() => setOpen((o) => !o)}
-        aria-label="Toggle AI assistant"
-      >
+      <button className={`${styles.chatbotTrigger} ${open ? styles.active : ""}`} onClick={() => setOpen((o) => !o)}>
         {open ? <IconClose /> : <IconBot />}
       </button>
 
@@ -242,11 +251,7 @@ export default function ChatBot() {
             
             {showBooking && (
               <div className={styles.bookingCard}>
-                <div className={styles.bookingHeader}>
-                  <IconCalendar />
-                  <span>Request a Meeting</span>
-                  <button onClick={() => setShowBooking(false)}>✕</button>
-                </div>
+                <div className={styles.bookingHeader}><IconCalendar /><span>Request a Meeting</span><button onClick={() => setShowBooking(false)}>✕</button></div>
                 <form onSubmit={handleBookingSubmit} className={styles.bookingForm}>
                   <input placeholder="Your Name" value={bookingData.name} required onChange={e => setBookingData({...bookingData, name: e.target.value})} />
                   <input type="email" placeholder="Email Address" value={bookingData.email} required onChange={e => setBookingData({...bookingData, email: e.target.value})} />
@@ -264,25 +269,18 @@ export default function ChatBot() {
 
             {typing && (
               <div className={`${styles.chatbotMsg} ${styles.bot}`}>
-                <div className={`${styles.chatbotBubble} ${styles.typingDots}`}>
-                  <span /><span /><span />
-                </div>
+                <div className={`${styles.chatbotBubble} ${styles.typingDots}`}><span /><span /><span /></div>
               </div>
             )}
             <div ref={bottomRef} />
           </div>
 
-          <div className={styles.chatbotSuggestions}>
-            {["When is Shubham free?", "Schedule a Meeting", "Skills"].map((s) => (
-              <button key={s} className={styles.chatbotChip} onClick={() => { setMessages(p => [...p, {role: 'user', text: s}]); send(s); }}>
-                {s}
-              </button>
-            ))}
-          </div>
-
           <div className={styles.chatbotInputRow}>
-            <input className={styles.chatbotInput} value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} placeholder="Type a message..." />
-            <button className={styles.chatbotSend} onClick={() => send()} disabled={typing}><IconSend /></button>
+            <button className={`${styles.micBtn} ${listening ? styles.listening : ""}`} onClick={toggleListening} type="button">
+              <IconMic />
+            </button>
+            <input className={styles.chatbotInput} value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} placeholder="Type or use Mic..." />
+            <a className={styles.chatbotSend} onClick={() => send()} disabled={typing}><IconSend /></a>
           </div>
         </div>
       )}

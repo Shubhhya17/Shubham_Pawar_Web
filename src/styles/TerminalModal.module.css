@@ -1,0 +1,141 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.terminal {
+  width: 100%;
+  max-width: 600px;
+  background: #0d0d0d;
+  border: 1px solid #00ff00;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+  font-family: 'Courier New', Courier, monospace;
+  overflow: hidden;
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.9; }
+  15% { opacity: 0.95; }
+  25% { opacity: 1; }
+  50% { opacity: 0.98; }
+  100% { opacity: 0.99; }
+}
+
+.header {
+  background: #222;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.red { background: #ff5f56; cursor: pointer; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+.title {
+  color: #888;
+  font-size: 13px;
+}
+
+.content {
+  padding: 30px;
+  color: #00ff00;
+}
+
+.line {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.prompt {
+  color: #fff;
+}
+
+.scanning {
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.result {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.bigText {
+  font-size: 40px;
+  font-weight: 900;
+  text-align: center;
+  margin: 30px 0;
+  text-shadow: 0 0 10px #00ff00;
+  letter-spacing: 5px;
+}
+
+.desc {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 40px;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.hireBtn {
+  background: #00ff00;
+  color: #000;
+  border: none;
+  padding: 12px 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.hireBtn:hover {
+  background: #fff;
+  box-shadow: 0 0 15px #fff;
+}
+
+.cancelBtn {
+  background: transparent;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 12px 25px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cancelBtn:hover {
+  background: rgba(0, 255, 0, 0.1);
+}
+
+@media (max-width: 480px) {
+  .bigText { font-size: 24px; }
+  .actions { flex-direction: column; }
+}

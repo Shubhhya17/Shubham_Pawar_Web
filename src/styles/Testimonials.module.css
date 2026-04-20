@@ -1,0 +1,90 @@
+.testimonialsSection {
+  background: #fff;
+  padding: 50px 0;
+}
+
+.carousel {
+  padding: 20px 0;
+}
+
+.card {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 30px 25px;
+  text-align: center;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  border: 1px solid #eee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  background: #dc143c;
+  border-color: #dc143c;
+  transform: translateY(-5px);
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.box img {
+  height: 90px;
+  width: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #dc143c;
+  transition: all 0.3s ease;
+  margin-bottom: 15px;
+}
+
+.card:hover .box img {
+  border-color: #fff;
+}
+
+.text {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 10px 0 5px 0;
+  color: #111;
+  transition: all 0.3s ease;
+}
+
+.card:hover .text {
+  color: #fff;
+}
+
+.position {
+  font-size: 14px;
+  color: #dc143c;
+  margin-bottom: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.card:hover .position {
+  color: #eee;
+}
+
+.feedback {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-style: italic;
+  transition: all 0.3s ease;
+}
+
+.card:hover .feedback {
+  color: #fff;
+}
+
+.stars {
+  color: #ffd700;
+  font-size: 16px;
+}

@@ -9,6 +9,9 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ChatBot from "@/components/ChatBot";
 import Home from "@/components/Landing";
+import Testimonials from "@/components/Testimonials";
+import StatsSection from "@/components/StatsSection";
+import TerminalModal from "@/components/TerminalModal";
 import AOSInit from "@/components/AOSInit";
 
 export default function Page() {
@@ -23,9 +26,12 @@ export default function Page() {
       <Social />
       <Experience />
       <Certificates />
+      <Testimonials />
+      <StatsSection />
       <Contact />
       <Footer />
       <ChatBot />
+      <TerminalModal />
     </>
   );
 }

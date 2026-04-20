@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import styles from "../styles/Footer.module.css";
 
 export default function Footer() {
-  const [viewCount, setViewCount] = useState(0);
+  const [viewCount, setViewCount] = useState(null);
 
   useEffect(() => {
-    // 1. Increment view count on mount (post to /api/views)
     const updateViews = async () => {
       try {
         const res = await fetch("/api/views", { method: "POST" });
@@ -28,12 +27,14 @@ export default function Footer() {
           Created By <a href="#">Shubham Pawar</a> |{" "}
           <span className="far fa-copyright"></span> 2026 All rights reserved.
         </span>
-        {viewCount > 0 && (
-          <div className={styles.viewCounter}>
-            <i className="fas fa-eye"></i>
-            <span>{viewCount.toLocaleString()} Views</span>
-          </div>
-        )}
+        
+        <div className={styles.viewCounter}>
+          <i className="fas fa-eye"></i>
+          <strong>
+            {viewCount !== null ? viewCount.toLocaleString() : "..."}
+          </strong> 
+          <span> Views</span>
+        </div>
       </div>
     </footer>
   );
