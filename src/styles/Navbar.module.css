@@ -8,8 +8,11 @@
 }
 
 .navbar.sticky {
-  background: #dc143c !important;
-  padding: 15px 0;
+  background: rgba(10, 10, 10, 0.75) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo a {
@@ -50,7 +53,11 @@
 }
 
 .sticky .menu li a:hover {
-  color: #111;
+  color: #dc143c;
+}
+
+.sticky .logo a span {
+  color: #dc143c !important;
 }
 
 .menuBtn {
