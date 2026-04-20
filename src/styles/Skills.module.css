@@ -1,72 +1,194 @@
-.skillsContent {
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(180px, auto);
+  gap: 20px;
+  grid-template-areas: 
+    "stack stack ui"
+    "stack stack tools"
+    "philosophy philosophy philosophy";
+}
+
+.bentoItem {
+  background: rgba(13, 13, 13, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 30px;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  overflow: hidden;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
-.column {
-  width: calc(50% - 30px);
+:global(.section-light) .bentoItem {
+  background: rgba(250, 250, 250, 0.8);
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
-.left .text {
-  font-size: 25px;
-  font-weight: 600;
+.bentoItem:hover {
+  transform: translateY(-5px);
+  border-color: rgba(220, 20, 60, 0.3);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+:global(.section-light) .bentoItem:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.cardHeader {
   margin-bottom: 20px;
 }
 
-.left p {
-  text-align: justify;
-  line-height: 1.6;
-}
-
-.right .bars {
-  margin-bottom: 25px;
-}
-
-.right .info {
-  display: flex;
+.cardTag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #dc143c;
+  font-weight: 700;
+  display: block;
   margin-bottom: 8px;
+}
+
+.bentoItem h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+
+:global(.section-light) .bentoItem h3 {
+  color: #111;
+}
+
+/* Stack Card Specifics */
+.stackCard {
+  grid-area: stack;
+  background: linear-gradient(145deg, rgba(20, 20, 20, 0.8) 0%, rgba(10, 10, 10, 0.8) 100%);
+}
+
+:global(.section-light) .stackCard {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 245, 0.9) 100%);
+}
+
+.stackIcons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.stackIconItem {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 15px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  transition: 0.3s;
 }
 
-.right span {
+:global(.section-light) .stackIconItem {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.02);
+}
+
+.stackIconItem:hover {
+  background: rgba(220, 20, 60, 0.1);
+  border-color: rgba(220, 20, 60, 0.2);
+}
+
+.stackIconItem .icon {
+  font-size: 24px;
+}
+
+.stackIconItem .name {
+  font-size: 12px;
   font-weight: 500;
-  font-size: 17px;
-  font-family: 'Poppins', sans-serif;
+  color: #888;
 }
 
-.line {
-  height: 6px;
-  width: 100%;
-  background: #333;
-  position: relative;
-  border-radius: 10px;
-  overflow: hidden;
+.cardDesc {
+  color: #999;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: auto;
 }
 
-.line::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: #dc143c;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(220, 20, 60, 0.4);
+:global(.section-light) .cardDesc {
+  color: #555;
 }
 
-.react::before { width: 95%; }
-.node::before { width: 85%; }
-.uiux::before { width: 90%; }
-.js::before { width: 92%; }
-.next::before { width: 90%; }
-.git::before { width: 85%; }
+/* UI Card & Tools Card */
+.uiCard { grid-area: ui; }
+.toolsCard { grid-area: tools; }
 
-@media (max-width: 947px) {
-  .column {
-    width: 100%;
-    margin-bottom: 40px;
+.skillTags, .toolsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.skillTags span, .toolsList span {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+  color: #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Philosophy Card */
+.philosophyCard {
+  grid-area: philosophy;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+}
+
+.philosophyCard p {
+  color: #aaa;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 60%;
+}
+
+.ctaWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+@media (max-width: 1024px) {
+  .bentoGrid {
+    grid-template-areas: 
+      "stack stack stack"
+      "ui tools tools"
+      "philosophy philosophy philosophy";
+  }
+}
+
+@media (max-width: 768px) {
+  .bentoGrid {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .philosophyCard {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .philosophyCard p {
+    max-width: 100%;
+  }
+
+  .stackIcons {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

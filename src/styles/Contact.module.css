@@ -10,13 +10,27 @@
 }
 
 .text {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-family: var(--font-heading);
+  color: #111;
+  letter-spacing: -1px;
+}
+
+:global(.section-dark) .text {
+  color: #fff;
 }
 
 .left p {
   text-align: justify;
+  line-height: 1.8;
+  color: #555;
+  font-size: 16px;
+}
+
+:global(.section-dark) .left p {
+  color: #bbb;
 }
 
 .left .icons {
@@ -43,7 +57,11 @@
 }
 
 .info .subTitle {
-  color: #333;
+  color: #666;
+}
+
+:global(.section-dark) .info .subTitle {
+  color: #bbb;
 }
 
 .right form .fields {
@@ -72,13 +90,22 @@
 .right form .textarea textarea {
   height: 100%;
   width: 100%;
-  border: 1px solid lightgrey;
-  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
   outline: none;
   padding: 0 15px;
-  font-size: 17px;
-  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-family: var(--font-body);
   transition: all 0.3s ease;
+  color: #111;
+}
+
+:global(.section-dark) .right form .field input,
+:global(.section-dark) .right form .textarea textarea {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
 }
 
 .right form .field input:focus,

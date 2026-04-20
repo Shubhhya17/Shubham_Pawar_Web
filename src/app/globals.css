@@ -1,5 +1,13 @@
-/* ************** import google fonts ********************************************/
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Inter:wght@100..900&display=swap');
+
+:root {
+    --primary: #dc143c;
+    --bg-dark: #000;
+    --text-main: #fff;
+    --text-dim: #999;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
 
 * {
     margin: 0;
@@ -8,66 +16,95 @@
     text-decoration: none;
 }
 
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
 html {
     scroll-behavior: smooth;
 }
 
 /* ****************************custom scroll bar **************************************/
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #050505;
 }
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #222;
+    border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: var(--primary);
 }
 
 /******************************** all similar content styling codes ******************************/
 section {
-    padding: 100px 0;
-    font-family: 'Poppins', sans-serif;
+    padding: 120px 0;
+    transition: background 0.5s ease;
+}
+
+.section-dark {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+}
+
+.section-light {
+    background-color: #fff;
+    color: #111;
 }
 
 .max-width {
-    max-width: 1300px;
-    padding: 0 80px;
+    max-width: 1400px;
+    padding: 0 100px;
     margin: auto;
 }
 
 section .title {
     position: relative;
     text-align: center;
-    font-size: 40px;
-    font-weight: 500;
-    margin-bottom: 60px;
-    padding-bottom: 20px;
-    font-family: 'Ubuntu', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    margin-bottom: 80px;
+    padding-bottom: 10px;
+    font-family: var(--font-heading);
+    letter-spacing: -2px;
 }
 
-section .title::before {
-    content: "";
-    position: absolute;
-    bottom: 0px;
-    left: 50%;
-    width: 180px;
-    height: 3px;
-    background: #111;
-    transform: translateX(-50%);
+.section-dark .title {
+    background: linear-gradient(to bottom, #fff 0%, #999 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-light .title {
+    background: linear-gradient(to bottom, #000 0%, #444 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 section .title::after {
+    content: "";
     position: absolute;
-    bottom: -8px;
+    bottom: -10px;
     left: 50%;
-    font-size: 20px;
-    color: crimson;
-    padding: 0 5px;
-    background: #fff;
+    width: 60px;
+    height: 4px;
+    background: var(--primary);
     transform: translateX(-50%);
+    border-radius: 10px;
+}
+
+.section-dark .title::after {
+    box-shadow: 0 0 15px var(--primary);
+}
+
+.section-light .title::after {
+    box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);
 }
 
 /************************ responsive media query start *************/

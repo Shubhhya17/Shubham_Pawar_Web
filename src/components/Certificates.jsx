@@ -44,9 +44,9 @@ const certificatesData = [
   },
 ];
 
-export default function Certificates() {
+export default function Certificates({ theme }) {
   return (
-    <section className="teams" id="certificates">
+    <section className={`teams ${theme}`} id="certificates">
       <div className="max-width">
         <h2 className="title">Certificates</h2>
 

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "../styles/Contact.module.css";
 import confetti from "canvas-confetti";
 
-export default function Contact() {
+export default function Contact({ theme }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -103,7 +103,7 @@ export default function Contact() {
   };
 
   return (
-    <section className={styles.contactSection} id="contact">
+    <section className={`${styles.contactSection} ${theme}`} id="contact">
       <div className="max-width">
         <h2 className="title" data-aos="fade-up">Contact me</h2>
         <div className={styles.contactContent}>

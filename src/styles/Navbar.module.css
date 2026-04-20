@@ -1,13 +1,11 @@
 .navbar {
   position: fixed;
   width: 100%;
-  padding: 20px 0;
-  transition: all 0.4s ease;
+  padding: 30px 0;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   z-index: 1000;
   font-family: 'Poppins', sans-serif;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: transparent;
 }
 
 .navbar .maxWidth {
@@ -17,21 +15,34 @@
   max-width: 1300px;
   padding: 0 80px;
   margin: auto;
+  transition: all 0.4s ease;
 }
 
 .navbar.sticky {
-  background: rgba(10, 10, 10, 0.85) !important;
-  backdrop-filter: blur(35px);
-  -webkit-backdrop-filter: blur(35px);
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 0;
+  width: auto;
+  min-width: 60%;
+  background: #45040499 !important;
+  backdrop-filter: blur(200px);
+  -webkit-backdrop-filter: blur(200px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.navbar.sticky .maxWidth {
+  padding: 0 40px;
 }
 
 .logo a {
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 700;
   color: #fff;
   text-decoration: none;
+  letter-spacing: -1px;
 }
 
 .logo a span {
@@ -40,7 +51,7 @@
 }
 
 .sticky .logo a span {
-  color: #fff !important;
+  color: #dc143c !important;
 }
 
 .menu {
@@ -49,27 +60,29 @@
 
 .menu li {
   display: inline-block;
-  margin-left: 25px;
+  margin-left: 30px;
 }
 
 .menu li a {
-  color: #fff;
+  color: #ccc;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
 }
 
 .menu li a:hover {
-  color: #dc143c;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.sticky .menu li a {
+  color: #ddd;
 }
 
 .sticky .menu li a:hover {
-  color: #dc143c;
-}
-
-.sticky .logo a span {
-  color: #dc143c !important;
+  color: #fff;
 }
 
 .menuBtn {
@@ -80,7 +93,18 @@
   margin-left: auto;
 }
 
+@media (max-width: 991px) {
+  .navbar.sticky {
+    width: 90%;
+  }
+}
+
 @media (max-width: 947px) {
+  .navbar.sticky {
+    width: 95%;
+    border-radius: 20px;
+  }
+  
   .menuBtn {
     display: block;
     z-index: 999;
@@ -92,7 +116,8 @@
     width: 100%;
     left: -100%;
     top: 0;
-    background: #111;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
     text-align: center;
     padding-top: 80px;
     transition: all 0.3s ease;
@@ -104,6 +129,7 @@
   
   .menu li {
     display: block;
+    margin-left: 0;
   }
   
   .menu li a {

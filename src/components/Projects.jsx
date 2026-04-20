@@ -72,9 +72,9 @@ const projectsData = [
   },
 ];
 
-export default function Projects() {
+export default function Projects({ theme }) {
   return (
-    <section className="teams" id="projects">
+    <section className={`teams ${theme}`} id="projects">
       <div className="max-width">
         <h2 className="title" data-aos="fade-up">Projects</h2>
 
@@ -97,7 +97,16 @@ export default function Projects() {
             {/* 2. Map through the project data */}
             {projectsData.map((project) => (
               <SwiperSlide key={project.id}>
-                <div className={styles.card}>
+                <div 
+                  className={styles.card}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+                    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+                  }}
+                >
                   <div className={styles.box}>
                     <img src={project.image} alt={project.title} />
 

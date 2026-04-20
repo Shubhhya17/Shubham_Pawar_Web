@@ -15,7 +15,7 @@ const IconEye = () => (
   </svg>
 );
 
-export default function StatsSection() {
+export default function StatsSection({ theme }) {
   const [viewCount, setViewCount] = useState(null);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function StatsSection() {
   const themeStr = "&theme=radical&hide_border=true&bg_color=0d0d0d&title_color=dc143c&icon_color=dc143c&text_color=eee";
 
   return (
-    <section className={styles.statsSection} id="stats">
+    <section className={`${styles.statsSection} ${theme}`} id="stats">
       <div className="max-width">
         <h2 className={`${styles.title} title`} data-aos="fade-up">Open Source & Community Impact</h2>
 

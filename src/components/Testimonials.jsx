@@ -29,9 +29,9 @@ const testimonials = [
   }
 ];
 
-export default function Testimonials() {
+export default function Testimonials({ theme }) {
   return (
-    <section className={styles.testimonialsSection} id="testimonials">
+    <section className={`${styles.testimonialsSection} ${theme}`} id="testimonials">
       <div className="max-width">
         <h2 className="title" data-aos="fade-up">Testimonials</h2>
         

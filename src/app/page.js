@@ -20,15 +20,15 @@ export default function Page() {
       <AOSInit />
       <Navbar />
       <Home />
-      <About />
-      <Projects />
-      <Skills />
-      <Social />
-      <Experience />
-      <Certificates />
-      <Testimonials />
-      <StatsSection />
-      <Contact />
+      <About theme="section-light" />
+      <Projects theme="section-dark" />
+      <Skills theme="section-light" />
+      <Social theme="section-dark" />
+      <Experience theme="section-light" />
+      <Certificates theme="section-dark" />
+      <Testimonials theme="section-light" />
+      <StatsSection theme="section-dark" />
+      <Contact theme="section-light" />
       <Footer />
       <ChatBot />
       <TerminalModal />

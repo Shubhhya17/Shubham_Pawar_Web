@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/Experience.module.css";
 
-export default function Experience() {
+export default function Experience({ theme }) {
   const [fillHeight, setFillHeight] = useState(0);
   const sectionRef = useRef(null);
   
@@ -60,7 +60,7 @@ export default function Experience() {
   }, []);
 
   return (
-    <section className="experience" id="experience" ref={sectionRef}>
+    <section className={`experience ${theme}`} id="experience" ref={sectionRef}>
       <div className="max-width">
         <h2 className="title" data-aos="fade-up">Work Experience</h2>
         

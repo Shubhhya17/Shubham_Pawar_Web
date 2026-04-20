@@ -43,9 +43,9 @@ const socialData = [
   },
 ];
 
-export default function SocialMedia() {
+export default function SocialMedia({ theme }) {
   return (
-    <section className="teams" id="social-media">
+    <section className={`teams ${theme}`} id="social-media">
       <div className="max-width">
         <h2 className="title">Social Media</h2>
 

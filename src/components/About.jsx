@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Typed from "typed.js";
 import styles from "../styles/About.module.css";
 
-export default function About() {
+export default function About({ theme }) {
   const el = useRef(null);
   const [mounted, setMounted] = useState(false);
 
@@ -28,7 +28,7 @@ export default function About() {
   }, [mounted]);
 
   return (
-    <section className="about" id="about">
+    <section className={`about ${theme}`} id="about">
       <div className="max-width">
         <h2 className="title" data-aos="fade-up">About me</h2>
 
