@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import Typed from "typed.js";
 import styles from "../styles/Home.module.css";
-import Particles from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
 
 export default function Landing() {
   const [showPopup, setShowPopup] = useState(false);
@@ -15,7 +13,6 @@ export default function Landing() {
     userNumber: "",
   });
   const [mounted, setMounted] = useState(false);
-  const [particlesReady, setParticlesReady] = useState(false);
   const typingRef = useRef(null);
 
   useEffect(() => {
@@ -54,11 +51,6 @@ export default function Landing() {
     };
   }, [mounted]);
 
-  // tsParticles init
-  const particlesInit = useCallback(async (engine) => {
-    await loadSlim(engine);
-  }, []);
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -82,62 +74,9 @@ export default function Landing() {
     }
   };
 
-  const particlesOptions = {
-    fullScreen: false,
-    background: { color: { value: "transparent" } },
-    fpsLimit: 60,
-    interactivity: {
-      events: {
-        onHover: { enable: true, mode: "repulse" },
-        onClick: { enable: true, mode: "push" },
-      },
-      modes: {
-        repulse: { distance: 120, duration: 0.4 },
-        push: { quantity: 3 },
-      },
-    },
-    particles: {
-      color: { value: ["#ffffff", "#dc143c", "#ff4d6d"] },
-      links: {
-        color: "#ffffff",
-        distance: 140,
-        enable: true,
-        opacity: 0.25,
-        width: 1,
-      },
-      move: {
-        direction: "none",
-        enable: true,
-        outModes: { default: "bounce" },
-        random: true,
-        speed: 1.2,
-        straight: false,
-      },
-      number: { density: { enable: true }, value: 90 },
-      opacity: { value: { min: 0.2, max: 0.7 }, animation: { enable: true, speed: 1 } },
-      shape: { type: "circle" },
-      size: { value: { min: 1, max: 3 } },
-    },
-    detectRetina: true,
-  };
-
   return (
     <>
       <section className={styles.home} id="home">
-        {/* Particles animated background */}
-        {mounted && (
-          <Particles
-            id="hero-particles"
-            init={particlesInit}
-            options={particlesOptions}
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 0,
-            }}
-          />
-        )}
-
         <div className={styles.maxWidth} style={{ position: "relative", zIndex: 1 }}>
           <div className={styles.homeContent}>
             <div className={styles.text1} data-aos="fade-down" data-aos-delay="100">

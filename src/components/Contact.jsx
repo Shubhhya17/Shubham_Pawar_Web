@@ -93,7 +93,7 @@ export default function Contact() {
                 <div className="info">
                   <div className="head">Email</div>
                   <div className="sub-title">
-                    pawarshubh980@gmail.com
+                    pawarshubh890@gmail.com
                   </div>
                 </div>
               </div>

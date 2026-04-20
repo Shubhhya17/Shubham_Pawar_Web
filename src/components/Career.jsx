@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Career() {
   const [fillHeight, setFillHeight] = useState(0);
+  const [activeIndices, setActiveIndices] = useState([]);
   const sectionRef = useRef(null);
+  const itemRefs = useRef([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,21 +15,86 @@ export default function Career() {
       const rect = sectionRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       
-      const start = viewportHeight / 1.5;
-      const end = viewportHeight / 3;
+      // Calculate progress more accurately based on section visibility
+      const sectionStart = rect.top;
+      const sectionHeight = rect.height;
+      const viewScroll = viewportHeight / 2; // Midpoint as trigger
       
       let progress = 0;
-      if (rect.top < start) {
-        progress = ((start - rect.top) / (rect.height + start - end)) * 100;
+      if (sectionStart < viewScroll) {
+        progress = ((viewScroll - sectionStart) / sectionHeight) * 100;
       }
       
       setFillHeight(Math.min(Math.max(progress, 0), 100));
+
+      // Dynamic dot activation
+      const newActiveIndices = [];
+      itemRefs.current.forEach((ref, index) => {
+        if (ref) {
+          const itemRect = ref.getBoundingClientRect();
+          if (itemRect.top < viewScroll + 50) {
+            newActiveIndices.push(index);
+          }
+        }
+      });
+      setActiveIndices(newActiveIndices);
     };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const milestones = [
+    {
+      year: "2021",
+      title: "Diploma in Engineering",
+      subtitle: "Foundation of my technical journey.",
+      description: "Solving complex challenges with software and AI. My diploma journey shaped my adaptability, discipline, and technical acumen.",
+      image: "/images/wall1.jpg"
+    },
+    {
+      year: "2024",
+      title: "Dr. Rajendra Gode Institute",
+      degree: "BE in Computer Science & Engineering",
+      cgpa: "2021-2024 (CGPA : 8.3)",
+      gridItems: [
+        {
+          desc: "Graduating with a BE in Computer Science & Engineering marks the first major milestone. These years were transformative, equipping me with expertise in software development and AI.",
+          img: "/images/wall1.jpg"
+        },
+        {
+          desc: "From hands-on projects to real-world problem-solving, I honed my analytical skills, strengthening my passion for innovation.",
+          img: "/images/wall1.jpg"
+        }
+      ]
+    },
+    {
+      year: "May '24",
+      role: "Full-Stack Developer Intern",
+      company: "Aivariant",
+      meta: "May 2024 – Oct 2024 · 6 months · Full-time",
+      tags: ["Java", "JavaScript", "React", "MySQL"],
+      description: "Gained hands-on experience building full-stack web applications. Delivered features end-to-end, from database design to responsive UI."
+    },
+    {
+      year: "Nov '24",
+      role: "Frontend Developer",
+      company: "mr.chams",
+      meta: "Nov 2024 – Nov 2025 · 1 yr 1 mo · Full-time · Hyderabad",
+      tags: ["Next.js", "React.js", "REST APIs", "GitHub"],
+      description: "Spearheaded frontend development for Zaanvar.com and Rconspace. Built pixel-perfect, responsive UIs and integrated complex REST APIs."
+    },
+    {
+      year: "Feb '26",
+      role: "Software Developer",
+      company: "Ideas To Impacts",
+      meta: "Feb 2026 – Present · Full-time · Pune",
+      tags: ["React.js", "Node.js", "PostgreSQL", "Express.js"],
+      description: "Working as a Software Developer building Bondsmart.com — a digital investment platform for fixed-income corporate bonds.",
+      current: true
+    }
+  ];
 
   return (
     <section className="career" id="career" ref={sectionRef}>
@@ -43,223 +110,278 @@ export default function Career() {
           </div>
 
           <div className="timeline-items">
-            {/* 2021 Milestone */}
-            <div className="timeline-item" data-aos="fade-right">
-              <div className="timeline-dot"></div>
-              <div className="timeline-year">2021</div>
-              <div className="timeline-content">
-                <div className="timeline-card">
-                  <div className="card-info">
-                    <h3>Diploma in Engineering</h3>
-                    <p>Foundation of my technical journey.</p>
-                  </div>
-                  <div className="card-image">
-                    <img src="/images/wall1.jpg" alt="Academy building" />
-                  </div>
-                </div>
-                <div className="timeline-desc" data-aos="fade-left">
-                    <p>
-                        Solving complex challenges with software and AI. My diploma journey shaped my adaptability, 
-                        discipline, and technical acumen, preparing me for the next phase in my learning and career.
-                    </p>
-                </div>
-              </div>
-            </div>
-
-            {/* 2024 Milestone */}
-            <div className="timeline-item" data-aos="fade-right">
-              <div className="timeline-dot"></div>
-              <div className="timeline-year">2024</div>
-              <div className="timeline-content">
-                <div className="college-header">
-                    <h3>Dr. Rajendra Gode Institute of Technology &amp; Research, Amravati</h3>
-                    <h4>(BE in Computer Science &amp; Engineering)</h4>
-                    <p className="cgpa">2021-2024 (CGPA : 8.3)</p>
-                </div>
+            {milestones.map((item, index) => (
+              <div 
+                key={index} 
+                className="timeline-item" 
+                data-aos="fade-up"
+                ref={el => itemRefs.current[index] = el}
+              >
+                <div className={`timeline-dot ${activeIndices.includes(index) ? 'active' : ''}`}></div>
+                <div className="timeline-year">{item.year}</div>
                 
-                <div className="timeline-grid">
-                    <div className="grid-image" data-aos="zoom-in">
-                         <img src="/images/wall1.jpg" alt="College Building" />
+                <div className="timeline-content">
+                  {/* Experience Card */}
+                  {item.role ? (
+                    <div className={`exp-card ${item.current ? 'current' : ''}`}>
+                      <div className="exp-header">
+                        <div className="exp-role">{item.role}</div>
+                        <div className="exp-company">{item.company}</div>
+                        <div className="exp-meta">{item.meta}</div>
+                        {item.current && <span className="current-badge">Current</span>}
+                      </div>
+                      <div className="exp-body">
+                        <p>{item.description}</p>
+                        <div className="exp-tags">
+                          {item.tags.map(tag => <span key={tag}>{tag}</span>)}
+                        </div>
+                      </div>
                     </div>
-                    <div className="grid-desc" data-aos="fade-left">
-                        <p>
-                            Graduating with a BE in Computer Science &amp; Engineering marks the first major milestone in my 
-                            professional journey. These years have been transformative, equipping me with expertise in 
-                            software development, AI, and backend technologies.
-                        </p>
+                  ) : item.gridItems ? (
+                    /* College/Education Grid */
+                    <div className="edu-content">
+                        <div className="college-header">
+                            <h3>{item.title}</h3>
+                            <h4>({item.degree})</h4>
+                            <p className="cgpa">{item.cgpa}</p>
+                        </div>
+                        {item.gridItems.map((grid, gIdx) => (
+                            <div key={gIdx} className={`timeline-grid ${gIdx % 2 !== 0 ? 'reverse' : ''}`}>
+                                <div className="grid-image">
+                                    <img src={grid.img} alt="Education" />
+                                </div>
+                                <div className="grid-desc">
+                                    <p>{grid.desc}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                </div>
-
-                <div className="timeline-grid reverse">
-                    <div className="grid-desc" data-aos="fade-right">
-                        <p>
-                            From hands-on projects to real-world problem-solving, I have honed my technical and analytical 
-                            skills. This phase has not only shaped my knowledge but also strengthened my adaptability 
-                            and passion for innovation.
-                        </p>
+                  ) : (
+                    /* Diploma/Simple Milestone */
+                    <div className="milestone-content">
+                      <div className="timeline-card">
+                        <div className="card-info">
+                          <h3>{item.title}</h3>
+                          <p>{item.subtitle}</p>
+                        </div>
+                        <div className="card-image">
+                          <img src={item.image} alt={item.title} />
+                        </div>
+                      </div>
+                      <div className="timeline-desc">
+                        <p>{item.description}</p>
+                      </div>
                     </div>
-                    <div className="grid-image" data-aos="zoom-in">
-                         <img src="/images/wall1.jpg" alt="Project presentation" />
-                    </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Experience: Aivariant Internship */}
-            <div className="timeline-item" data-aos="fade-right">
-              <div className="timeline-dot"></div>
-              <div className="timeline-year">May '24</div>
-              <div className="timeline-content">
-                <div className="exp-card" data-aos="fade-left">
-                  <div className="exp-header">
-                    <div className="exp-role">Full-Stack Developer Intern</div>
-                    <div className="exp-company">Aivariant</div>
-                    <div className="exp-meta">May 2024 – Oct 2024 &nbsp;·&nbsp; 6 months &nbsp;·&nbsp; Full-time</div>
-                  </div>
-                  <div className="exp-body">
-                    <p>Gained hands-on experience building full-stack web applications. Worked with Java, JavaScript, React, and MySQL to deliver features end-to-end, from database design to responsive UI implementation.</p>
-                    <div className="exp-tags">
-                      <span>Java</span><span>JavaScript</span><span>React</span><span>MySQL</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Experience: mr.chams */}
-            <div className="timeline-item" data-aos="fade-right">
-              <div className="timeline-dot"></div>
-              <div className="timeline-year">Nov '24</div>
-              <div className="timeline-content">
-                <div className="exp-card" data-aos="fade-left">
-                  <div className="exp-header">
-                    <div className="exp-role">Frontend Developer</div>
-                    <div className="exp-company">mr.chams</div>
-                    <div className="exp-meta">Nov 2024 – Nov 2025 &nbsp;·&nbsp; 1 yr 1 mo &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Hyderabad, India (On-site)</div>
-                  </div>
-                  <div className="exp-body">
-                    <p>Spearheaded frontend development for Zaanvar.com and Rconspace — a pet marketplace and a construction ERP platform. Built pixel-perfect, responsive UIs and integrated complex REST APIs.</p>
-                    <div className="exp-tags">
-                      <span>Next.js</span><span>React.js</span><span>REST APIs</span><span>GitHub</span>
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
-            </div>
-
-            {/* Experience: Ideas To Impacts */}
-            <div className="timeline-item" data-aos="fade-right">
-              <div className="timeline-dot active"></div>
-              <div className="timeline-year">Feb '26</div>
-              <div className="timeline-content">
-                <div className="exp-card current" data-aos="fade-left">
-                  <div className="exp-header">
-                    <div className="exp-role">Software Developer</div>
-                    <div className="exp-company">Ideas To Impacts</div>
-                    <div className="exp-meta">Feb 2026 – Present &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Pune, India (On-site)</div>
-                    <span className="current-badge">Current</span>
-                  </div>
-                  <div className="exp-body">
-                    <p>Working as a Software Developer building Bondsmart.com — a digital investment platform for fixed-income corporate bonds in India. Developing both frontend and backend solutions with a focus on security and scalability.</p>
-                    <div className="exp-tags">
-                      <span>React.js</span><span>Node.js</span><span>PostgreSQL</span><span>Express.js</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            ))}
           </div>
         </div>
       </div>
 
       <style jsx>{`
-        /* === Career section: white background, matches portfolio pattern === */
         .career {
-          background: #fff;
-          color: #111;
+          background: #0a0a0a;
+          color: #fff;
           font-family: 'Poppins', sans-serif;
+          overflow: hidden;
         }
 
-        /* Title underline dot — matches other sections */
         .career .title::after {
           content: "my journey";
-          background: #fff;
+          background: #0a0a0a;
+        }
+
+        .career .title::before {
+            background: #fff;
         }
 
         .timeline-container {
           position: relative;
-          max-width: 1000px;
+          max-width: 1100px;
           margin: 0 auto;
-          padding: 50px 0;
+          padding: 80px 0;
         }
 
-        /* === Vertical line background track === */
         .timeline-line {
           position: absolute;
-          left: 150px;
+          left: 170px;
           top: 0;
-          width: 4px;
+          width: 2px;
           height: 100%;
-          background: #eee;
+          background: rgba(255, 255, 255, 0.1);
           border-radius: 2px;
         }
 
-        /* === RED fill slider === */
         .timeline-fill {
           position: absolute;
           left: 0;
           top: 0;
           width: 100%;
-          background: crimson;
-          box-shadow: 0 0 12px rgba(220, 20, 60, 0.5);
+          background: linear-gradient(to bottom, transparent, crimson, crimson);
+          box-shadow: 0 0 15px crimson;
           border-radius: 2px;
-          transition: height 0.08s ease-out;
-        }
-
-        .timeline-items {
-          position: relative;
+          transition: height 0.1s ease-out;
         }
 
         .timeline-item {
           display: flex;
-          margin-bottom: 120px;
+          margin-bottom: 100px;
           position: relative;
+          z-index: 1;
         }
 
-        /* === Dot on the line === */
         .timeline-dot {
           position: absolute;
-          left: 142px;
-          top: 12px;
-          width: 20px;
-          height: 20px;
+          left: 161px;
+          top: 15px;
+          width: 18px;
+          height: 18px;
           border-radius: 50%;
-          background: #fff;
-          border: 4px solid #ccc;
+          background: #1a1a1a;
+          border: 3px solid #333;
           z-index: 2;
-          transition: border-color 0.3s, transform 0.3s;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .timeline-item:hover .timeline-dot {
+        .timeline-dot.active {
           border-color: crimson;
-          transform: scale(1.2);
+          background: crimson;
+          transform: scale(1.3);
+          box-shadow: 0 0 15px crimson;
         }
 
-        /* === Year label — crimson to match portfolio accent === */
         .timeline-year {
-          width: 120px;
-          font-size: 40px;
+          width: 140px;
+          font-size: 32px;
           font-weight: 700;
-          color: crimson;
+          color: rgba(255, 255, 255, 0.3);
           text-align: right;
           margin-right: 60px;
-          line-height: normal;
+          line-height: 1;
           font-family: 'Ubuntu', sans-serif;
+          transition: color 0.4s;
+          padding-top: 10px;
+        }
+
+        .timeline-item:hover .timeline-year,
+        .timeline-item .timeline-dot.active + .timeline-year {
+          color: crimson;
         }
 
         .timeline-content {
           flex: 1;
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 20px;
+          padding: 30px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+          transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .timeline-item:hover .timeline-content {
+          transform: translateY(-5px);
+          border-color: rgba(220, 20, 60, 0.3);
+        }
+
+        .exp-card.current {
+          border-left: 4px solid crimson;
+          background: rgba(220, 20, 60, 0.05);
+        }
+
+        .exp-role {
+          font-size: 22px;
+          font-weight: 700;
+          color: #fff;
+          margin-bottom: 5px;
+        }
+
+        .exp-company {
+          font-size: 18px;
+          font-weight: 600;
+          color: crimson;
+          margin-bottom: 8px;
+        }
+
+        .exp-meta {
+          font-size: 13px;
+          color: #888;
+          margin-bottom: 15px;
+        }
+
+        .current-badge {
+          display: inline-block;
+          background: crimson;
+          color: #fff;
+          font-size: 10px;
+          padding: 3px 10px;
+          border-radius: 20px;
+          font-weight: 700;
+          text-transform: uppercase;
+          margin-top: 5px;
+        }
+
+        .exp-body p {
+          color: #ccc;
+          line-height: 1.7;
+          margin-bottom: 20px;
+        }
+
+        .exp-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .exp-tags span {
+          background: rgba(255, 255, 255, 0.05);
+          color: #ddd;
+          font-size: 12px;
+          padding: 5px 15px;
+          border-radius: 30px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .college-header h3 {
+          color: crimson;
+          font-size: 20px;
+          margin-bottom: 5px;
+        }
+
+        .college-header h4 {
+          color: #eee;
+          font-size: 16px;
+          margin-bottom: 5px;
+        }
+
+        .cgpa {
+          color: #888;
+          font-size: 14px;
+          margin-bottom: 20px;
+        }
+
+        .timeline-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          margin-top: 20px;
+        }
+
+        .grid-image img {
+          width: 100%;
+          height: 180px;
+          object-fit: cover;
+          border-radius: 15px;
+        }
+
+        .grid-desc {
+          display: flex;
+          align-items: center;
+          color: #ccc;
+          font-size: 14px;
+          line-height: 1.6;
         }
 
         .timeline-card {
@@ -268,195 +390,62 @@ export default function Career() {
           margin-bottom: 20px;
         }
 
-        /* === Cards: dark background like about/skills sections === */
-        .card-info {
-          background: #111;
-          color: #fff;
-          padding: 20px;
-          border-radius: 10px;
-          flex: 1;
-          border-left: 4px solid crimson;
-        }
-
         .card-info h3 {
-          color: #fff;
-          margin-bottom: 8px;
-          font-size: 18px;
+          font-size: 20px;
+          margin-bottom: 10px;
         }
 
         .card-info p {
-          color: #ccc;
+          color: #888;
           font-size: 14px;
         }
 
-        .card-image img, .grid-image img {
-          width: 100%;
-          height: 200px;
+        .card-image img {
+          width: 200px;
+          height: 120px;
           object-fit: cover;
           border-radius: 10px;
         }
 
-        .card-image {
-          width: 300px;
-        }
-
         .timeline-desc {
-          background: #f5f5f5;
-          border-left: 3px solid crimson;
-          padding: 20px;
-          border-radius: 6px;
-          font-size: 15px;
-          color: #333;
-          line-height: 1.7;
-        }
-
-        /* === College header === */
-        .college-header {
-          margin-bottom: 20px;
-        }
-
-        .college-header h3 {
-          color: crimson;
-          margin-bottom: 5px;
-          font-weight: 600;
-          font-size: 18px;
-        }
-
-        .college-header h4 {
-          font-size: 16px;
-          font-weight: 500;
-          color: #444;
-          margin-bottom: 4px;
-        }
-
-        .cgpa {
+          color: #ccc;
           font-size: 14px;
-          color: #666;
-          margin-bottom: 20px;
+          line-height: 1.7;
+          padding-top: 15px;
+          border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        .timeline-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
-          margin-bottom: 20px;
-        }
-
-        .grid-desc {
-          background: #111;
-          color: #ddd;
-          padding: 20px;
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          font-size: 15px;
-          line-height: 1.6;
-        }
-
-        /* === Responsive === */
         @media (max-width: 947px) {
-          .timeline-line { left: 20px; }
-          .timeline-dot { left: 12px; }
+          .timeline-line { left: 30px; }
+          .timeline-dot { left: 21px; }
           .timeline-year {
-            width: auto;
-            margin-right: 0;
             position: absolute;
-            top: -40px;
-            left: 50px;
-            font-size: 30px;
+            top: -35px;
+            left: 60px;
+            text-align: left;
+            font-size: 24px;
+            width: auto;
           }
           .timeline-item {
             flex-direction: column;
-            padding-left: 50px;
-            padding-top: 50px;
+            padding-left: 60px;
           }
-          .timeline-card { flex-direction: column; }
-          .card-image { width: 100%; }
-          .timeline-grid { grid-template-columns: 1fr; }
+          .timeline-content {
+            padding: 20px;
+          }
+          .timeline-grid {
+            grid-template-columns: 1fr;
+          }
           .timeline-grid.reverse {
             display: flex;
             flex-direction: column-reverse;
           }
-          .exp-card { margin-left: 0; }
-        }
-
-        /* === Experience Cards === */
-        .timeline-dot.active {
-          border-color: crimson;
-          background: crimson;
-          transform: scale(1.2);
-        }
-
-        .exp-card {
-          background: #fff;
-          border: 1px solid #eee;
-          border-left: 4px solid #ccc;
-          border-radius: 12px;
-          padding: 20px 24px;
-          box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-          transition: box-shadow 0.3s, transform 0.3s;
-          position: relative;
-        }
-        .exp-card:hover {
-          box-shadow: 0 8px 30px rgba(220,20,60,0.13);
-          transform: translateY(-3px);
-        }
-        .exp-card.current {
-          border-left-color: crimson;
-          background: #fff8f8;
-        }
-
-        .exp-header {
-          margin-bottom: 12px;
-        }
-        .exp-role {
-          font-size: 18px;
-          font-weight: 700;
-          color: #111;
-        }
-        .exp-company {
-          font-size: 15px;
-          font-weight: 600;
-          color: crimson;
-          margin: 3px 0;
-        }
-        .exp-meta {
-          font-size: 12px;
-          color: #888;
-        }
-        .current-badge {
-          display: inline-block;
-          background: crimson;
-          color: #fff;
-          font-size: 10px;
-          padding: 2px 8px;
-          border-radius: 20px;
-          font-weight: 600;
-          margin-top: 6px;
-          letter-spacing: 0.5px;
-          text-transform: uppercase;
-        }
-
-        .exp-body p {
-          font-size: 14px;
-          color: #444;
-          line-height: 1.65;
-          margin-bottom: 12px;
-        }
-
-        .exp-tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
-        }
-        .exp-tags span {
-          background: #f3f4f6;
-          color: #333;
-          font-size: 11px;
-          font-weight: 600;
-          padding: 3px 10px;
-          border-radius: 20px;
-          border: 1px solid #e5e7eb;
+          .timeline-card {
+            flex-direction: column;
+          }
+          .card-image img {
+            width: 100%;
+          }
         }
       `}</style>
     </section>

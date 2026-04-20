@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   port: 587,           // port 587 + STARTTLS is faster than 465 SSL
   secure: false,       // STARTTLS
   auth: {
-    user: process.env.EMAIL_USER,   // pawarshubh980@gmail.com
+    user: process.env.EMAIL_USER,   // pawarshubh890@gmail.com
     pass: process.env.EMAIL_PASS,   // Gmail App Password (no spaces)
   },
   pool: true,
@@ -39,14 +39,14 @@ export async function POST(req) {
     }
 
     // SENDER  = the Gmail account that has the app password
-    // OWNER   = pawarshubh980@gmail.com — where YOU receive contact alerts
+    // OWNER   = pawarshubh890@gmail.com — where YOU receive contact alerts
     const SENDER     = process.env.EMAIL_USER;
     const OWNER      = process.env.OWNER_EMAIL || process.env.EMAIL_USER;
 
     // ── 1. Notification email TO Shubham's main inbox ─────────────────────────
     const notifyOptions = {
       from: `"Portfolio Bot" <${SENDER}>`,
-      to: OWNER,                        // → pawarshubh980@gmail.com
+      to: OWNER,                        // → pawarshubh890@gmail.com
       replyTo: email,                   // reply goes straight to the visitor
       subject: `📩 New Contact: ${name}`,
       html: `
@@ -87,7 +87,7 @@ export async function POST(req) {
     const thankYouOptions = {
       from: `"Shubham Pawar" <${SENDER}>`,
       to: email,
-      replyTo: OWNER,                   // replies from visitor go to pawarshubh980
+      replyTo: OWNER,                   // replies from visitor go to pawarshubh890
       subject: `✅ Thanks for reaching out, ${name}! — Shubham Pawar`,
       html: `
         <div style="font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f4;padding:30px 10px;">
@@ -142,7 +142,7 @@ export async function POST(req) {
             </div>
             <div style="background:#f9f9f9;border-top:1px solid #eee;text-align:center;
                         padding:16px;font-size:12px;color:#999;">
-              📧 pawarshubh980@gmail.com &nbsp;|&nbsp; 📍 Pune, Maharashtra, India<br/>
+              📧 pawarshubh890@gmail.com &nbsp;|&nbsp; 📍 Pune, Maharashtra, India<br/>
               Automated response from Shubham's portfolio website.
             </div>
           </div>
