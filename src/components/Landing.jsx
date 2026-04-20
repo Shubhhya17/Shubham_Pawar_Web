@@ -24,10 +24,12 @@ export default function Landing() {
 
     const typed = new Typed(typingRef.current, {
       strings: [
-        "Frontend Developer",
-        "MERN Stack Developer",
-        "Web Developer",
-        "Freelancer",
+        "Software Engineer",
+        "LinkedIn Top Voice",
+        "Full Stack Developer",
+        "Coder & Programmer",
+        "Professional Blogger",
+        "Freelance Developer",
       ],
       typeSpeed: 100,
       backSpeed: 60,

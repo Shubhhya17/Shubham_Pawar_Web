@@ -18,19 +18,22 @@ const SITE_URL = "https://shubhampawar.net";
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Shubham Pawar | Full-Stack Web Developer",
+    default: "Shubham Pawar | Software Engineer & LinkedIn Top Voice",
     template: "%s | Shubham Pawar"
   },
-  description: "Portfolio of Shubham Pawar, a passionate Full-Stack Developer specializing in React, Next.js, and Node.js. Based in Pune, India.",
+  description: "Shubham Pawar - Software Engineer, LinkedIn Top Voice, Coder, and Blogger. Expertise in Full-Stack development using React, Next.js, and Node.js. Experienced Freelance Developer based in Pune, India.",
   keywords: [
     "Shubham Pawar",
-    "Shubham Pawar Developer",
+    "Software Engineer",
+    "LinkedIn Top Voice",
+    "Coder",
+    "Programmer",
+    "Blogger",
+    "Freelance Developer",
     "Full Stack Developer Pune",
     "React Developer India",
     "Next.js Portfolio",
-    "Web Developer Portfolio",
-    "Software Engineer Pune",
-    "MERN Stack Developer India",
+    "MERN Stack Developer",
   ],
   authors: [{ name: "Shubham Pawar" }],
   creator: "Shubham Pawar",
@@ -38,22 +41,22 @@ export const metadata = {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
-    title: "Shubham Pawar | Full-Stack Web Developer",
-    description: "Explore the portfolio of Shubham Pawar - Full-Stack Developer specializing in modern web technologies.",
+    title: "Shubham Pawar | Software Engineer & Portfolio",
+    description: "Official portfolio of Shubham Pawar: Software Engineer, Coder, and LinkedIn Top Voice. Discover my projects and expertise in Full-Stack development.",
     siteName: "Shubham Pawar Portfolio",
     images: [
       {
         url: "/images/Pass2.jpg",
         width: 1200,
         height: 630,
-        alt: "Shubham Pawar",
+        alt: "Shubham Pawar - Software Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shubham Pawar | Full-Stack Developer",
-    description: "Full-Stack Developer portfolio of Shubham Pawar showcasing React & Next.js projects.",
+    title: "Shubham Pawar | Software Engineer & Blogger",
+    description: "Professional portfolio of Shubham Pawar - Software Engineer and Freelance Developer.",
     images: ["/images/Pass2.jpg"],
   },
   icons: {
@@ -80,7 +83,8 @@ export default function RootLayout({ children }) {
     "@type": "Person",
     "name": "Shubham Pawar",
     "url": SITE_URL,
-    "jobTitle": "Full Stack Developer",
+    "jobTitle": ["Software Engineer", "LinkedIn Top Voice", "Freelance Developer"],
+    "description": "Shubham Pawar is a Software Engineer, LinkedIn Top Voice, Coder, and Blogger specializing in Full-Stack Web Development.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Pune",
@@ -92,7 +96,7 @@ export default function RootLayout({ children }) {
       "https://github.com/Shubhhya17"
     ],
     "knowsAbout": [
-      "React", "Next.js", "Node.js", "MongoDB", "JavaScript", "TypeScript", "Web Development"
+      "Software Engineering", "Full Stack Development", "React", "Next.js", "Node.js", "MongoDB", "JavaScript", "Blogging", "Freelancing"
     ]
   };
 
