@@ -33,17 +33,18 @@ function renderText(text) {
 }
 
 const QUICK_REPLIES = [
-  "Who is Shubham?",
-  "What are your projects?",
-  "Technical skills?",
+  "Who is Shubham Pawar?",
+  "What is Bondsmart.com?",
+  "Your tech stack?",
   "How can I hire you?",
+  "Tell me about Rconspace.",
 ];
 
 export default function ChatBot() {
   const [open, setOpen] = useState(false);
-  const [mode, setMode] = useState("chat"); // 'chat' or 'voice'
+  const [mode, setMode] = useState("chat"); 
   const [messages, setMessages] = useState([
-    { role: "bot", text: "👋 Hi! I'm Shubham's AI Assistant. How can I help you today?", time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+    { role: "bot", text: "👋 Hi! I'm Shubham's AI Assistant. I can help you explore his projects, skills, and work experience. What would you like to know?", time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
@@ -52,7 +53,11 @@ export default function ChatBot() {
   const recognitionRef = useRef(null);
 
   useEffect(() => {
-    if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (open) {
+      setTimeout(() => {
+        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
   }, [messages, open, typing]);
 
   useEffect(() => {
@@ -69,7 +74,7 @@ export default function ChatBot() {
 
   const speak = (text) => {
     if (mode === "chat") return;
-    const u = new SpeechSynthesisUtterance(text.replace(/\*\*/g, ''));
+    const u = new SpeechSynthesisUtterance(text.replace(/\*\*/g, '').replace(/[#*]/g, ''));
     const voices = window.speechSynthesis.getVoices();
     u.voice = voices.find(v => v.name.includes("Female") || v.name.includes("Google US English")) || voices[0];
     window.speechSynthesis.speak(u);
@@ -92,7 +97,7 @@ export default function ChatBot() {
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify({ 
           message: trimmed,
-          history: messages.slice(-10) // Send context
+          history: messages.slice(-10) 
         }) 
       });
       
@@ -103,13 +108,11 @@ export default function ChatBot() {
         setMessages(p => [...p, { role: "bot", text: data.reply, time: botTime }]);
         speak(data.reply);
       } else {
-        console.error("ChatBot API Error:", data.error);
         throw new Error(data.error || "Unknown error");
       }
     } catch (err) {
-      console.error("ChatBot Fetch Error:", err);
       const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const fallback = `Assistant is offline (Error: ${err.message}). I'm Shubham's AI assistant—please try again after a moment or check the console for details.`;
+      const fallback = `I'm currently having a bit of trouble connecting to my brain. Please try again or reach out to Shubham directly at pawarshubh980@gmail.com!`;
       setMessages(p => [...p, { role: "bot", text: fallback, time: botTime }]);
     } finally { 
       setTyping(false); 
@@ -134,12 +137,22 @@ export default function ChatBot() {
                 <div className={styles.chatbotAvatar}><IconBot /></div>
                 <div>
                   <div className={styles.chatbotName}>AI Assistant</div>
-                  <div className={styles.chatbotStatus}>Online</div>
+                  <div className={styles.chatbotStatus}>Online & Ready</div>
                 </div>
               </div>
               <div className={styles.modeToggle}>
-                <button className={`${styles.modeBtn} ${mode === "chat" ? styles.modeBtnActive : ""}`} onClick={() => setMode("chat")}>Chat</button>
-                <button className={`${styles.modeBtn} ${mode === "voice" ? styles.modeBtnActive : ""}`} onClick={() => setMode("voice")}>Voice</button>
+                <button 
+                  className={`${styles.modeBtn} ${mode === "chat" ? styles.modeBtnActive : ""}`} 
+                  onClick={() => setMode("chat")}
+                >
+                  Chat
+                </button>
+                <button 
+                  className={`${styles.modeBtn} ${mode === "voice" ? styles.modeBtnActive : ""}`} 
+                  onClick={() => setMode("voice")}
+                >
+                  Voice
+                </button>
               </div>
             </div>
           </div>
@@ -163,7 +176,6 @@ export default function ChatBot() {
                   </div>
                 )}
                 
-                {/* Quick Replies */}
                 <div className={styles.quickReplies}>
                   {QUICK_REPLIES.map((q, i) => (
                     <button key={i} className={styles.quickReplyBtn} onClick={() => send(q)}>
@@ -171,14 +183,17 @@ export default function ChatBot() {
                     </button>
                   ))}
                 </div>
-                <div ref={bottomRef} />
+                <div ref={bottomRef} style={{ float: "left", clear: "both" }} />
               </>
             ) : (
               <div className={styles.assistantPulse}>
-                <div className={`${styles.pulseMic} ${listening ? styles.listening : ""}`} onClick={() => { setListening(true); recognitionRef.current?.start(); }}>
+                <div 
+                  className={`${styles.pulseMic} ${listening ? styles.listening : ""}`} 
+                  onClick={() => { setListening(true); recognitionRef.current?.start(); }}
+                >
                   <IconMic size={32} />
                 </div>
-                <p className={styles.pulseText}>{listening ? "Listening..." : "Tap to Speak to Assistant"}</p>
+                <p className={styles.pulseText}>{listening ? "Listening..." : "Tap to Speak"}</p>
                 <div className={styles.voiceLastMsg}>
                   {messages.filter(m => m.role === 'bot').slice(-1).map((msg, i) => (
                     <div key={i} className={styles.chatbotBubble} style={{textAlign: 'center'}}>{renderText(msg.text)}</div>
@@ -188,20 +203,41 @@ export default function ChatBot() {
             )}
           </div>
 
-          {mode === "chat" && (
-            <div className={styles.chatbotInputRow}>
-              <input 
+          <div className={styles.chatbotInputRow}>
+            {mode === "chat" ? (
+              <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+                <input 
+                  className={styles.chatbotInput} 
+                  value={input} 
+                  onChange={e => setInput(e.target.value)} 
+                  onKeyDown={e => e.key === "Enter" && send()} 
+                  placeholder="Ask me anything..." 
+                />
+                <button 
+                  className={`${styles.chatbotMic} ${listening ? styles.active : ""}`} 
+                  onClick={() => { setMode("voice"); setListening(true); recognitionRef.current?.start(); }}
+                  title="Speak to Assistant"
+                >
+                  <IconMic />
+                </button>
+                <button 
+                  className={styles.chatbotSend} 
+                  onClick={() => send()} 
+                  disabled={!input.trim() || typing}
+                >
+                  <IconSend />
+                </button>
+              </div>
+            ) : (
+              <button 
                 className={styles.chatbotInput} 
-                value={input} 
-                onChange={e => setInput(e.target.value)} 
-                onKeyDown={e => e.key === "Enter" && send()} 
-                placeholder="Ask me anything..." 
-              />
-              <button className={styles.chatbotSend} onClick={() => send()} disabled={!input.trim() || typing}>
-                <IconSend />
+                style={{ textAlign: 'center', cursor: 'pointer', background: 'rgba(220, 20, 60, 0.1)', borderColor: 'crimson', color: 'crimson', fontWeight: '600' }}
+                onClick={() => setMode("chat")}
+              >
+                Switch to Text Chat
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       )}
     </>

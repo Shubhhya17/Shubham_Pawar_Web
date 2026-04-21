@@ -43,7 +43,7 @@ export default function Navbar() {
           </ul>
 
           <div className={styles.menuBtn} onClick={() => setMenu(!menu)}>
-            ☰
+            <i className={menu ? "fas fa-times" : "fas fa-bars"}></i>
           </div>
         </div>
       </nav>

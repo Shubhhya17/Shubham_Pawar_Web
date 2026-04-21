@@ -189,28 +189,25 @@
 @media (max-width: 768px) {
 
     .home {
-        /* height: auto; */
-        padding: 60px 20px;
+        padding: 0 40px;
         justify-content: center;
         text-align: center;
-
-        /* image maintain */
-        background-size: cover;
-        background-position: center;
+        height: 100vh;
     }
 
     .homeContent .text1 {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .homeContent .text2 {
-        font-size: 45px;
+        font-size: 55px;
         margin-left: 0;
-        line-height: 1.2;
+        line-height: 1.1;
+        letter-spacing: -2px;
     }
 
     .homeContent .text3 {
-        font-size: 26px;
+        font-size: 28px;
     }
 }
 
@@ -218,9 +215,8 @@
 /* ================= MOBILE ================= */
 
 @media (max-width: 480px) {
-
     .home {
-        padding: 50px 15px;
+        padding: 0 20px;
     }
 
     .homeContent .text1 {
@@ -228,14 +224,21 @@
     }
 
     .homeContent .text2 {
-        font-size: 40px;
-        line-height: 1.2;
+        font-size: 42px;
+        letter-spacing: -1.5px;
     }
 
     .homeContent .text3 {
-        font-size: 25px;
+        font-size: 22px;
+        margin: 10px 0;
     }
 }
 
-
-/* ================= 380px (SMALL MOBILE) ================= */
+@media (max-width: 380px) {
+    .homeContent .text2 {
+        font-size: 36px;
+    }
+    .homeContent .text3 {
+        font-size: 18px;
+    }
+}
